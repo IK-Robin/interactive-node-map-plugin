@@ -698,15 +698,17 @@ function placeSmartInContainer(el, ev, pad = 8,tooltipTop,tooltipLeft) {
       ct.style.strokeWidth = ".5px";
       ct.style.fillOpacity = "1";
       ct.style.opacity = "1";
-      return;
-    } 
-
-    ct.style.stroke = "red";
+      // return;
+    } else{
+ ct.style.stroke = "red";
     ct.style.strokeWidth = ".5px";
 
     ct.style.fill = data_name.hover ? data_name.hover : "";
     ct.style.cursor = "pointer";
-    ct.style.fillOpacity = ".5";
+    ct.style.fillOpacity = "1";
+    }
+
+   
 
 
     tooltip.style.display = "block";
@@ -731,8 +733,8 @@ function placeSmartInContainer(el, ev, pad = 8,tooltipTop,tooltipLeft) {
       ct.style.fillOpacity = "1";
 
     } else {
-      ct.style.opacity = ".2";
-      ct.style.stroke = "none";
+      // ct.style.opacity = ".2";
+      ct.style.stroke = "#494949";
       let data_name = ct.dataset;
 
       if (data_name.fill !== '') {
