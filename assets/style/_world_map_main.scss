@@ -1,0 +1,211 @@
+.robingeo-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    gap: 2;
+	position: relative;
+}
+.ikr_tooltip-card{
+  display: none;
+}
+.map_container {
+	display: flex;
+	width: 70%;
+	height: auto;
+	flex-direction: column;
+}
+.map-img{
+    width: 100%;
+ height: 500px;
+ position: relative;
+
+
+}
+.map-data-show {
+	width: 100%;
+	height: auto;
+	overflow: auto; /* Add this line to enable scrolling */
+  }
+  
+.input-form{
+    width: 30%;
+    height: auto;
+    padding: 24px 16px
+    /* display: flex; */
+}
+
+.zoom_section {
+	position: absolute;
+	z-index: 11;
+  top: 16px ;
+  left: 10px;
+}
+
+
+/* input form section 
+ */
+ .data-entry {
+	width: 95%;
+	display: flex;
+	flex-direction: column;
+	margin: 10px;
+	justify-content: center;
+}
+
+.ikrwmap_world_map_img {
+	width: 100%;
+	height: 50%;
+  overflow: hidden;
+  min-height: 600px;
+  #ikr_svg{
+    width: 100%;
+    height: 100%;
+  }
+
+}
+.map-img {
+	width: 100%;
+	height: auto;
+}
+
+/* Style the color input */
+input[type="color"] {
+	width: 50px;
+	height: 30px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 0;
+	margin: 0;
+  }
+  
+
+
+
+
+
+  /* add new css  fro tooltip 
+  
+  */
+  .container {
+    display: flex;
+    flex-direction: row;
+/* background-color: ; */
+}
+.thumbnail{
+    width: 100px;
+    height: 100px;
+    
+display: block;
+}
+#sidebar-thumbnails {
+	display: flex;
+	width: 900px;
+	flex-wrap: wrap;
+  height: auto;
+}
+// img{
+//     width: 100px;
+//     height: auto;
+// }
+.sidebar {
+    width: 100%; 
+    display: flex;
+    flex-direction: row;
+
+    margin-right: 20px;
+    cursor: pointer;
+}
+#img_object{
+    width: 600px;
+    height: 400px;
+}
+       #container {
+          width: 100%;
+          background-color: red;
+          max-width: 700px;
+          height: 100vh;
+          position: relative;
+          /* overflow: hidden; */
+          background-color: transparent;
+        }
+  
+        .item {
+          width: 100px;
+          height: 100px;
+          background-color: blue;
+          margin: 10px;
+          color: white;
+          font-size: 30px;
+          text-align: center;
+          display: block;
+        }
+        .item:nth-child(2) {
+          width: 120px;
+        }
+        .item:nth-child(3) {
+          width: 300px;
+        }
+        .item:nth-child(4) {
+          width: 50px;
+        }
+        .item:nth-child(5) {
+          width: 120px;
+        }
+        .item:nth-child(6) {
+          width: 250px;
+        }
+        .position {
+          width: 10px;
+          height: 4px;
+          background-color: blue;
+          position: absolute;
+          top: 50%;
+          left: 0;
+        }
+        #move {
+          width: 100px;
+          height: 50px;
+          background-color: gray;
+          position: absolute;
+          right: 20px;
+        }
+  
+        
+   
+        .table {
+          border-spacing: 0 8px; /* Adds spacing only between rows */
+        }
+
+
+
+        // show the seccess messages 
+
+        #successMessage {
+          position: fixed;
+          top: 38px;
+          right: 31px;
+          
+          color: white;
+          padding: 10px 20px;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+          opacity: 1;
+          transition: opacity 0.5s ease;
+          z-index: 1000;
+}
+        
+        #successMessage.ikrwmap_show {
+          opacity: 1;
+        
+        }
+       
+        
+        .ikrwmap_hidden {
+          display: none;
+        }
+        
+
+        .inp_short_title{
+          font-size: 13px;
+        }

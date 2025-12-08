@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Floor Plan Tooltip (Class-Based)</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+    }
+
+    svg {
+      width: 100%;
+      height: 50vh;
+      background-color: #fff;
+    }
+
+    .room {
+      cursor: pointer;
+      fill: #dbeafe;
+      stroke: #2563eb;
+      stroke-width: 1;
+      transition: fill 0.2s;
+    }
+
+    .room:hover {
+      fill: #bfdbfe;
+    }
+
+    .tooltip-card {
+      position: absolute;
+      display: none;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      padding: 18px;
+      width: 320px;
+      z-index: 1000;
+      font-size: 14px;
+      color: #111827;
+      transform: translateY(10px);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .tooltip-card.visible {
+      display: block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .tooltip-card h3 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #0066cc;
+    }
+
+    .tooltip-card p {
+      margin: 8px 0;
+    }
+
+    .tooltip-card hr {
+      border: none;
+      border-top: 1px solid #ccc;
+      margin: 12px 0;
+    }
+
+    .status {
+      font-weight: bold;
+    }
+
+    .status.sponsored {
+      color: #2e7d32;
+    }
+
+    .status.available {
+      color: #92400e;
+    }
+
+    .tooltip-total {
+      font-weight: bold;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 500px) {
+      .tooltip-card {
+        width: 90%;
+        left: 5% !important;
+        top: auto !important;
+        bottom: 20px !important;
+        transform: none !important;
+      }
+
+      .tooltip-card.visible {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- First SVG -->
+<svg viewBox="0 0 800 600">
+  <rect class="room" x="60" y="50" width="180" height="100" data-room-id="counseling_1" data-tooltip-id="tooltip-1"></rect>
+  <rect class="room" x="280" y="50" width="180" height="100" data-room-id="counseling_4" data-tooltip-id="tooltip-1"></rect>
+</svg>
+
+<!-- Second SVG -->
+<svg viewBox="0 0 800 600">
+  <rect class="room" x="60" y="50" width="180" height="100" data-room-id="counseling_4" data-tooltip-id="tooltip-2"></rect>
+  <rect class="room" x="280" y="50" width="180" height="100" data-room-id="counseling_1" data-tooltip-id="tooltip-2"></rect>
+</svg>
+
+<!-- Tooltip Cards -->
+<div class="tooltip-card" data-tooltip="tooltip-1">
+  <h3 class="tooltip-title"></h3>
+  <p><strong>Size:</strong> <span class="tooltip-sqft"></span> sq. ft.</p>
+  <p class="tooltip-description"></p>
+  <hr>
+  <p><strong>Room Build:</strong> $<span class="build-amount"></span></p>
+  <p class="status build-status"></p>
+  <hr>
+  <p><strong>Room Furnish:</strong> $<span class="furnish-amount"></span></p>
+  <p class="status furnish-status"></p>
+  <hr>
+  <p class="tooltip-total">Total: $<span class="tooltip-total-value"></span></p>
+</div>
+
+<div class="tooltip-card" data-tooltip="tooltip-2">
+  <h3 class="tooltip-title"></h3>
+  <p><strong>Size:</strong> <span class="tooltip-sqft"></span> sq. ft.</p>
+  <p class="tooltip-description"></p>
+  <hr>
+  <p><strong>Room Build:</strong> $<span class="build-amount"></span></p>
+  <p class="status build-status"></p>
+  <hr>
+  <p><strong>Room Furnish:</strong> $<span class="furnish-amount"></span></p>
+  <p class="status furnish-status"></p>
+  <hr>
+  <p class="tooltip-total">Total: $<span class="tooltip-total-value"></span></p>
+</div>
+
+<script>
+  class TooltipManager {
+    constructor(data) {
+      this.data = data;
+      this.tooltips = document.querySelectorAll('.tooltip-card');
+      this.init();
+    }
+
+    init() {
+      document.querySelectorAll('.room').forEach(room => {
+        room.addEventListener('click', e => this.showTooltip(e, room));
+      });
+
+      document.addEventListener('click', e => {
+        if (!e.target.closest('.room') && !e.target.closest('.tooltip-card')) {
+          this.hideAll();
+        }
+      });
+
+      window.addEventListener('resize', () => this.hideAll());
+    }
+
+    showTooltip(e, room) {
+      const id = room.dataset.roomId;
+      const tooltipId = room.dataset.tooltipId;
+      const data = this.data[id];
+      const tooltip = document.querySelector(`.tooltip-card[data-tooltip="${tooltipId}"]`);
+      if (!data || !tooltip) return;
+console.log(data)
+      tooltip.querySelector('.tooltip-title').textContent = `${data.name} (Room ${data.number})`;
+      tooltip.querySelector('.tooltip-sqft').textContent = data.sqft;
+      tooltip.querySelector('.tooltip-description').textContent = data.description;
+      tooltip.querySelector('.build-amount').textContent = data.buildAmount.toLocaleString();
+      tooltip.querySelector('.build-status').textContent = data.buildStatus;
+      tooltip.querySelector('.build-status').className = `status build-status ${data.buildStatus.toLowerCase()}`;
+      tooltip.querySelector('.furnish-amount').textContent = data.furnishAmount.toLocaleString();
+      tooltip.querySelector('.furnish-status').textContent = data.furnishStatus;
+      tooltip.querySelector('.furnish-status').className = `status furnish-status ${data.furnishStatus.toLowerCase()}`;
+      tooltip.querySelector('.tooltip-total-value').textContent = data.total.toLocaleString();
+
+      // Position
+      const rect = room.getBoundingClientRect();
+      const scrollY = window.scrollY || window.pageYOffset;
+      const tooltipWidth = 320;
+      const padding = 10;
+      let left = rect.left + rect.width / 2 - tooltipWidth / 2;
+      let top = rect.bottom + scrollY + padding;
+
+      if (left < 10) left = 10;
+      else if (left + tooltipWidth > window.innerWidth - 10) {
+        left = window.innerWidth - tooltipWidth - 10;
+      }
+
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+      this.hideAll();
+      tooltip.classList.add('visible');
+    }
+
+    hideAll() {
+      this.tooltips.forEach(t => t.classList.remove('visible'));
+    }
+  }
+
+  const roomData = {
+    counseling_1: {
+      name: "Counseling Room 1",
+      number: "108",
+      sqft: 93,
+      description: "This is where we will put text describing the rooms...",
+      buildAmount: 5000,
+      furnishAmount: 2000,
+      total: 7000,
+      buildStatus: "Sponsored",
+      furnishStatus: "Available"
+    },
+    counseling_4: {
+      name: "Counseling Room 4",
+      number: "110",
+      sqft: 123,
+      description: "This room has a bit more space and is perfect for private consultations...",
+      buildAmount: 6500,
+      furnishAmount: 2000,
+      total: 8500,
+      buildStatus: "Sponsored",
+      furnishStatus: "Sponsored"
+    }
+  };
+
+  new TooltipManager(roomData);
+</script>
+
+</body>
+</html>
