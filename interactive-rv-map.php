@@ -275,7 +275,7 @@ function ikrwmap_on_plugin_activation() {
 
     // create pages and assign templates
     ikrwmap_create_plugin_page( 'price-list', 'Price List', IKRWMAP_PRICE_TEMPLATE_KEY );
-    ikrwmap_create_plugin_page( 'node-details', 'Node Details', IKRWMAP_SINGLE_NODE_TEMPLATE_KEY );
+    ikrwmap_create_plugin_page( 'node-maps', 'Node Maps', IKRWMAP_SINGLE_NODE_TEMPLATE_KEY );
 
     // call existing DB creation if present (the original plugin also registered it)
     if ( function_exists( 'ikrwmap_plugin_create_tables' ) ) {
