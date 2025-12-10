@@ -25,10 +25,10 @@ const wm2_ikr_total = document.getElementById('ikr_total_amount');
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
-
   let wm2_mapDataCache = null;
-  const wm2_svg4 = document.getElementById("svg4");
+  const wm2_svg4 = document.getElementById("ikr_svg");
   if (!wm2_svg4) return;
+  console.log('hel')
   let wm2_items = wm2_svg4.querySelectorAll("rect, path, circle, polygon");
 
   async function wm2_ikrwmap_retrieve_data_from_db() {
@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         ikrwmap_get_url.featchdata,
         ikrwmap_get_url.ajax_url
       );
+      console.log(response)
 
       if (response.length === 0) {
         // console.log("No data retrieved from the database.");
