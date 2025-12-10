@@ -1,1 +1,3 @@
 1. add the interactivity on the font end 
+2. add a template to load the style of the interactive map detail 
+3. set the url from the js to redirect the user to the pricelist page 
