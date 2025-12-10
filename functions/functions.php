@@ -66,7 +66,7 @@ function ikrwmap_add_world_map_add_style()
 
     $ikr_world_map_current_screen = get_current_screen();
 
-    echo $ikr_world_map_current_screen->base; 
+    echo $ikr_world_map_current_screen->base;
 
     if ($ikr_world_map_current_screen->base == "toplevel_page_interactive-node-map" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-1" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-2" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-3" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-4" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-5") {
         wp_enqueue_style('robingeo_enqueue_styel', plugin_dir_url(__FILE__) . '../assets/style/style.css', array(), '1.0.1', 'all');
@@ -257,7 +257,7 @@ function ikrwmap_node1_page()
 
         // include_once ROBIN_DIR_PATH_WORLD. './views/show-form-data.php';
         ?>
-<?php
+    <?php
 
 
 
@@ -319,7 +319,7 @@ function ikrwmap_node2_page()
 
         // include_once ROBIN_DIR_PATH_WORLD. './views/show-form-data.php';
         ?>
-<?php
+    <?php
 
 
 
@@ -381,7 +381,7 @@ function ikrwmap_node3_page()
 
         // include_once ROBIN_DIR_PATH_WORLD. './views/show-form-data.php';
         ?>
-<?php
+    <?php
 
 
 
@@ -443,7 +443,7 @@ function ikrwmap_node4_page()
 
         // include_once ROBIN_DIR_PATH_WORLD. './views/show-form-data.php';
         ?>
-<?php
+    <?php
 
 
 
@@ -827,3 +827,106 @@ function ikrwmap_retrieveData_from_db_from_database()
 }
 add_action('wp_ajax_ikrwmap_retrieveData_from_db', 'ikrwmap_retrieveData_from_db_from_database');
 add_action('wp_ajax_nopriv_ikrwmap_retrieveData_from_db', 'ikrwmap_retrieveData_from_db_from_database');
+
+
+
+/* ---------------------------
+ 
+ --------------------------- */
+// ---------- Constants ----------
+if (! defined('IWM_PLUGIN_TEMPLATE_KEY')) {
+    define('IWM_PLUGIN_TEMPLATE_KEY', 'price-list-plugin-template.php'); // the key stored in _wp_page_template
+}
+if (! defined('IWM_PLUGIN_TEMPLATE_NAME')) {
+    define('IWM_PLUGIN_TEMPLATE_NAME', 'Price List (Plugin Template)'); // shown in editor
+}
+
+/**
+ * Add our plugin template to the theme template list shown in the editor
+ */
+add_filter('theme_page_templates', 'iwm_add_plugin_page_template', 10, 4);
+function iwm_add_plugin_page_template($post_templates, $theme = null, $post = null, $post_type = null)
+{
+    $post_templates[IWM_PLUGIN_TEMPLATE_KEY] = IWM_PLUGIN_TEMPLATE_NAME;
+    return $post_templates;
+}
+
+/**
+ * Return our plugin template file when a page uses our registered template key.
+ */
+add_filter('page_template', 'iwm_load_plugin_page_template');
+function iwm_load_plugin_page_template($page_template)
+{
+    if (is_admin()) {
+        return $page_template;
+    }
+
+    global $post;
+    if (! $post) {
+        return $page_template;
+    }
+
+    $selected = get_post_meta($post->ID, '_wp_page_template', true);
+    if ($selected === IWM_PLUGIN_TEMPLATE_KEY) {
+        $plugin_template = plugin_dir_path(__FILE__) . 'templates/price-list.php';
+        if (file_exists($plugin_template)) {
+            return $plugin_template;
+        } else {
+            error_log("IWM plugin template not found: $plugin_template");
+        }
+    }
+
+    return $page_template;
+}
+
+/**
+ * Clear template transient cache so WP picks up our injected template immediately.
+ */
+function iwm_clear_page_templates_cache()
+{
+    $theme_root = get_theme_root();
+    $stylesheet = get_stylesheet();
+    $cache_key   = 'page_templates-' . md5($theme_root . '/' . $stylesheet);
+    delete_transient($cache_key);
+}
+add_action('admin_init', 'iwm_clear_page_templates_cache');
+
+/**
+ * Create the page on plugin activation and assign our template to it.
+ * Use register_activation_hook in the plugin main file.
+ */
+function iwm_create_price_list_page_on_activation()
+{
+    // clear cache first
+    iwm_clear_page_templates_cache();
+
+    $slug  = 'price-list';
+    // if page exists, set template if not already set
+    $page = get_page_by_path($slug);
+    if ($page) {
+        // ensure template meta is set
+        update_post_meta($page->ID, '_wp_page_template', IWM_PLUGIN_TEMPLATE_KEY);
+        return;
+    }
+
+    // create new page
+    $page_data = array(
+        'post_title'   => 'price List',
+        'post_name'    => $slug,
+        'post_content' => 'This page is created by the plugin and uses the plugin template.',
+        'post_status'  => 'publish',
+        'post_type'    => 'page',
+        'post_author'  => 1,
+    );
+
+    $page_id = wp_insert_post($page_data);
+
+    if (! is_wp_error($page_id) && $page_id) {
+        update_post_meta($page_id, '_wp_page_template', IWM_PLUGIN_TEMPLATE_KEY);
+    }
+}
+
+// only register activation hook if this file is the plugin main file
+if (function_exists('register_activation_hook')) {
+    register_activation_hook(__FILE__, 'iwm_create_price_list_page_on_activation');
+}
