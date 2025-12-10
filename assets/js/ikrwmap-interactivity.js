@@ -686,7 +686,7 @@ function placeSmartInContainer(el, ev, pad = 8,tooltipTop,tooltipLeft) {
     el.style.visibility = prevVis || "visible";
     el.style.display = prevDisp || "block";
 }
-
+const allnode_id = ['node_1','node_2','node_3','node_4','node_5'];
   function showTooltip(hover) {
     let ct = hover.target;
     let data_name = ct.dataset;
@@ -700,12 +700,33 @@ function placeSmartInContainer(el, ev, pad = 8,tooltipTop,tooltipLeft) {
       ct.style.opacity = "1";
       // return;
     } else{
- ct.style.stroke = "red";
-    ct.style.strokeWidth = ".5px";
 
-    ct.style.fill = data_name.hover ? data_name.hover : "";
-    ct.style.cursor = "pointer";
-    ct.style.fillOpacity = "1";
+
+        const isNode = allnode_id.includes(ct.id);
+
+    // ✔ If id is in the node list → add opacity .5  
+    if (isNode) {
+        ct.style.opacity = "0.5";
+        ct.style.strokeWidth = "1px";
+        ct.style.fillOpacity = "0.5";
+    } 
+    
+    // ✔ If id is NOT in list → opacity 1  
+    else {
+        ct.style.opacity = "1";
+        ct.style.fillOpacity = "1";
+        ct.style.fill ='red';
+            ct.style.strokeWidth = ".5px";
+    }
+
+
+
+
+//  ct.style.stroke = "red";
+
+//     ct.style.fill = data_name.hover ? data_name.hover : "";
+//     ct.style.cursor = "pointer";
+//     ct.style.fillOpacity = "1";
     }
 
    
@@ -728,22 +749,36 @@ function placeSmartInContainer(el, ev, pad = 8,tooltipTop,tooltipLeft) {
     if (ct.id == "cupola_weatherane") {
       return;
     }
+
+
     if (ct.id == style_clicked_id) {
       ct.style.opacity = "1";
       ct.style.fillOpacity = "1";
 
     } else {
-      // ct.style.opacity = ".2";
+
+          const isNode = allnode_id.includes(ct.id);
+
+    // ✔ If id is in the node list → add opacity .5  
+    if (isNode) {
+       
+        ct.style.strokeWidth = "1px";
+        ct.style.fillOpacity = "0.1";
+    } else{
+ // ct.style.opacity = ".2";
       ct.style.stroke = "#494949";
       let data_name = ct.dataset;
-
-      if (data_name.fill !== '') {
+        if (data_name.fill !== '') {
 
         ct.style.fill = data_name.fill || "";
       }
       else if (data_name.partially_sponsored !== '') {
         ct.style.fill = data_name.partially_sponsored || "";
       }
+    }
+     
+
+    
     }
 
 
