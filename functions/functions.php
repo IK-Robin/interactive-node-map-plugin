@@ -151,7 +151,7 @@ function ikrwmap_ikrwmap_add_admin_menu_page()
         <div class="map_container">
 
 
-            <h1>First Floor</h1>
+            <h1>All Nodes</h1>
             <div class="map-img">
 
                 <div class="zoom_section">

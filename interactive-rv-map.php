@@ -33,7 +33,7 @@ if ( file_exists( IKRWMAP_ROBIN_DIR_PATH_WORLD . 'includes/db.php' ) ) {
 function ikrwmap_add_menu_page() {
     add_menu_page( 'interactive-node-map', 'Node Map', 'manage_options', 'interactive-node-map', 'ikrwmap_ikrwmap_add_admin_menu_page', 'dashicons-admin-site', 11 );
 
-    add_submenu_page( 'interactive-node-map', 'All Nodes', 'All Nodes', 'manage_options', 'interactive-node-list', 'ikrwmap_ikrwmap_add_admin_menu_page' );
+    add_submenu_page( 'interactive-node-map', 'All Nodes', 'All Nodes', 'manage_options', 'interactive-node-map', 'ikrwmap_ikrwmap_add_admin_menu_page' );
     add_submenu_page( 'interactive-node-map', 'Node 1', 'Node 1', 'manage_options', 'interactive-node-1', 'ikrwmap_node1_page' );
 
     add_submenu_page( 'interactive-node-map', 'Node 2', 'Node 2', 'manage_options', 'interactive-node-2', 'ikrwmap_node2_page' );
