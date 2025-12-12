@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! defined( 'IKRWMAP_ROBIN_DIR_PATH_WORLD' ) ) {
     define( 'IKRWMAP_ROBIN_DIR_PATH_WORLD', plugin_dir_path( __FILE__ ) );
 }
+if ( ! defined( 'IKRNMAP_VERSION' ) ) {
+    define( 'IKRNMAP_VERSION','1.0.1' );
+}
 
 /* ---------- Include original functions file (admin pages, enqueues, ajax handlers etc.) ---------- */
 if ( file_exists( IKRWMAP_ROBIN_DIR_PATH_WORLD . 'functions/functions.php' ) ) {

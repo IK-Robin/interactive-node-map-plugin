@@ -18,13 +18,13 @@ function ikrwmap_add_rdat_scripts()
     if ($ikr_world_map_current_screen->base == "toplevel_page_interactive-node-map" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-1" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-2" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-3" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-4" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-5") {
         // add zoom js 
 
-        wp_enqueue_script('ikrwmap_add_zoom_js', plugin_dir_url(__FILE__) . '../assets/js/ikr-zoom.js', [], '1.0.1', true);
-        wp_enqueue_script('from_submit', plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-interactivity.js', array(), '1.0.1', true);
+        wp_enqueue_script('ikrwmap_add_zoom_js', plugin_dir_url(__FILE__) . '../assets/js/ikr-zoom.js', [], IKRNMAP_VERSION, true);
+        wp_enqueue_script('from_submit', plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-interactivity.js', array(), IKRNMAP_VERSION, true);
 
         // wp_enqueue_script('featch_data_from_server',plugin_dir_url(__FILE__) . '../assets/js/your-custom.js');
         wp_enqueue_media();
-        wp_enqueue_script('featch_data_from_server', plugin_dir_url(__FILE__) . '../assets/js/worldmap-global.js', [], '1.0.1', false);
-        wp_enqueue_script('add_ikrwmap_image', plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-images.js', [], '1.0.1', true);
+        wp_enqueue_script('featch_data_from_server', plugin_dir_url(__FILE__) . '../assets/js/worldmap-global.js', [], IKRNMAP_VERSION, false);
+        wp_enqueue_script('add_ikrwmap_image', plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-images.js', [], IKRNMAP_VERSION, true);
 
 
 
@@ -69,7 +69,7 @@ function ikrwmap_add_world_map_add_style()
     echo $ikr_world_map_current_screen->base;
 
     if ($ikr_world_map_current_screen->base == "toplevel_page_interactive-node-map" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-1" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-2" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-3" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-4" || $ikr_world_map_current_screen->base == "node-map_page_interactive-node-5") {
-        wp_enqueue_style('robingeo_enqueue_styel', plugin_dir_url(__FILE__) . '../assets/style/style.css', array(), '1.0.1', 'all');
+        wp_enqueue_style('robingeo_enqueue_styel', plugin_dir_url(__FILE__) . '../assets/style/style.css', array(), IKRNMAP_VERSION, 'all');
         wp_enqueue_style(
             'ikr_bootstrap_css',
             plugin_dir_url(__FILE__) . '../assets/style/ikrwmap-bootstrap.css',
@@ -87,6 +87,15 @@ add_action('admin_enqueue_scripts', 'ikrwmap_add_world_map_add_style');
 function ikrwmap_add_frontend_script()
 {
 
+    //  register the required js if the shortcode is available and the page is single page 
+
+    if (is_singular('page') && has_shortcode(get_post()->post_content, 'all-nodes-map')) {
+        // shortcode exists AND this is a single page
+        // register/enqueue your JS here
+        wp_enqueue_script('ikrnmap-interactive-single-function', plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js', array(), IKRNMAP_VERSION, true);
+    }
+
+
 
     // Ensure we have a post object
 
@@ -100,7 +109,7 @@ function ikrwmap_add_frontend_script()
         'ikrwmap_frontend_css',
         plugin_dir_url(__FILE__) . '../assets/style/ikrwmap-fontend-style.css',
         [],
-        '1.0.1',
+        IKRNMAP_VERSION,
         'all'
     );
 
@@ -109,7 +118,7 @@ function ikrwmap_add_frontend_script()
         'ikrwmap-fontend-script',
         plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-fontend-script.js',
         [],
-        '1.0.1',
+        IKRNMAP_VERSION,
         true
     );
 
@@ -124,7 +133,7 @@ function ikrwmap_add_frontend_script()
         'ikrwmap-fontend-script_e1',
         plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-fontend-script-e1.js',
         [],
-        '1.0.1',
+        IKRNMAP_VERSION,
         true
     );
 
