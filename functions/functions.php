@@ -92,8 +92,30 @@ function ikrwmap_add_frontend_script()
     if (is_singular('page') && has_shortcode(get_post()->post_content, 'all-nodes-map')) {
         // shortcode exists AND this is a single page
         // register/enqueue your JS here
-        wp_enqueue_script('ikrnmap-interactive-single-function', plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js', array(), IKRNMAP_VERSION, true);
+        wp_enqueue_script('ikrnmap-component', 
+        plugin_dir_url(__FILE__) . '../assets/js/rcost-component.js', 
+        array(),
+         IKRNMAP_VERSION, 
+         true);
+        wp_enqueue_script('ikrnmap-interactive-single-function', 
+        plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js', 
+        array(),
+         IKRNMAP_VERSION, 
+         true);
+        wp_enqueue_script('ikrnmap-zoom', 
+        plugin_dir_url(__FILE__) . '../assets/js/rcost-zoom.js', 
+        array(),
+         IKRNMAP_VERSION, 
+         true);
+        wp_enqueue_script('ikrnmap-interactive-clean-interactive', 
+        plugin_dir_url(__FILE__) . '../assets/js/clean-interactive.js', 
+        array(),
+         IKRNMAP_VERSION, 
+         true);
+
     }
+
+
 
 
 
@@ -105,44 +127,44 @@ function ikrwmap_add_frontend_script()
 
     // CSS for either shortcode
 
-    wp_enqueue_style(
-        'ikrwmap_frontend_css',
-        plugin_dir_url(__FILE__) . '../assets/style/ikrwmap-fontend-style.css',
-        [],
-        IKRNMAP_VERSION,
-        'all'
-    );
+    // wp_enqueue_style(
+    //     'ikrwmap_frontend_css',
+    //     plugin_dir_url(__FILE__) . '../assets/style/ikrwmap-fontend-style.css',
+    //     [],
+    //     IKRNMAP_VERSION,
+    //     'all'
+    // );
 
 
-    wp_enqueue_script(
-        'ikrwmap-fontend-script',
-        plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-fontend-script.js',
-        [],
-        IKRNMAP_VERSION,
-        true
-    );
-
-
-
-    wp_localize_script('ikrwmap-fontend-script', 'ikrwmap_get_url', [
-        'featchdata' => 'ikrwmap_retrieveData_from_db',
-        'ajax_url'   => admin_url('admin-ajax.php'),
-    ]);
-
-    wp_enqueue_script(
-        'ikrwmap-fontend-script_e1',
-        plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-fontend-script-e1.js',
-        [],
-        IKRNMAP_VERSION,
-        true
-    );
+    // wp_enqueue_script(
+    //     'ikrwmap-fontend-script',
+    //     plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-fontend-script.js',
+    //     [],
+    //     IKRNMAP_VERSION,
+    //     true
+    // );
 
 
 
-    wp_localize_script('ikrwmap-fontend-script_e1', 'ikrwmap_get_url_e1', [
-        'featchdata' => 'ikrwmap_retrieveData_from_db',
-        'ajax_url'   => admin_url('admin-ajax.php'),
-    ]);
+    // wp_localize_script('ikrwmap-fontend-script', 'ikrwmap_get_url', [
+    //     'featchdata' => 'ikrwmap_retrieveData_from_db',
+    //     'ajax_url'   => admin_url('admin-ajax.php'),
+    // ]);
+
+    // wp_enqueue_script(
+    //     'ikrwmap-fontend-script_e1',
+    //     plugin_dir_url(__FILE__) . '../assets/js/ikrwmap-fontend-script-e1.js',
+    //     [],
+    //     IKRNMAP_VERSION,
+    //     true
+    // );
+
+
+
+    // wp_localize_script('ikrwmap-fontend-script_e1', 'ikrwmap_get_url_e1', [
+    //     'featchdata' => 'ikrwmap_retrieveData_from_db',
+    //     'ajax_url'   => admin_url('admin-ajax.php'),
+    // ]);
 }
 add_action('wp_enqueue_scripts', 'ikrwmap_add_frontend_script');
 
