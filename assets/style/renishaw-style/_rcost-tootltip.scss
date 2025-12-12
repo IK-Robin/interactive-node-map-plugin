@@ -1,0 +1,408 @@
+// =============================== main tooltip style   ================================================
+
+#mapTitle {
+  width: max-content;
+  padding: 10px 15px;
+  margin: 0 auto;
+  // max-width: 250px;
+}
+#ikr_toltipMove {
+  position: absolute;
+  display: none;
+  // min-width: 158px;
+  // max-width: 250px;
+  width: max-content;
+  height: auto;
+  // padding: 10px;
+  margin: 0 auto;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+  line-height: 22px;
+  // background-color: #fff;
+  // background-color: #113034;
+  z-index: 55;
+  // pointer-events: none;
+  // box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  border-radius: 6px;
+  // border: 6px solid #c1b09f;
+}
+
+/* Paragraph styles */
+#ikr_toltipMove p {
+
+	margin: 4px 0;
+	font-size: 15px;
+	font-family: "Rajdhani", Sans-serif;
+	letter-spacing: .5px;
+	font-weight: 500;
+	color: #0F0F0F;
+
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #ikr_toltipMove {
+    font-size: 14px;
+    max-width: 200px;
+    padding: 8px;
+  }
+
+  #ikr_toltipMove p {
+    font-size: 13px;
+    line-height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #ikr_toltipMove {
+    font-size: 13px;
+    max-width: 160px;
+    padding: 6px;
+  }
+
+  #ikr_toltipMove p {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+.ikr_svg_container {
+  width: 100%;
+  height: auto;
+
+  margin: 0 auto;
+}
+.availableLot {
+  fill: green !important;
+}
+.soldLot {
+  fill: red !important;
+}
+// =============================== main tooltip style   ================================================
+
+// =============================== node page view scss  ================================================
+
+
+// Center container
+
+// clickable/hover marker
+
+// tooltip
+.rcost-plot-tooltip {
+  // position: absolute;
+  // left: 50%;
+  // bottom: 120%; // above the marker
+  // transform: translateX(-50%);
+  max-width: 250px;
+  max-width: max-content;
+  background: #ffffff;
+  // box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  text-align: center;
+  // font-family: inherit;
+  
+  // pointer-events: none;
+  // transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   left: 50%;
+  //   bottom: -8px;
+  //   transform: translateX(-50%);
+  //   width: 0;
+  //   height: 0;
+  //   border-left: 8px solid transparent;
+  //   border-right: 8px solid transparent;
+  //   border-top: 8px solid #ffffff;
+  // }
+
+  .ploat-tooltip-container {
+    padding: 16px 18px 0;
+
+    .plot-label {
+  
+
+	// letter-spacing: .5px;
+	color: #000;
+	 margin-bottom: 6px; 
+	// font-family: "Rajdhani", Sans-serif;
+  font-family: "Cairo", Sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 16px;
+
+    }
+
+    .development_type {
+      font-size: 16px;
+      font-weight: 600;
+      color: #b28b39; // gold-ish
+      margin-bottom: 6px;
+      font-family: "Cairo", Sans-serif;
+      letter-spacing: 1.9px;
+    }
+
+    .plot-size {
+   
+
+	margin-bottom: 12px;
+	
+  font-family: "Cairo", Sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 16px;
+
+    }
+  }
+
+  .plot-btn {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #222222;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 15px;
+    letter-spacing: 0.15em;
+    padding: 10px 0;
+    cursor: pointer;
+    font-family: 'cairo', sans-serif;
+    letter-spacing: 1.9px;
+    font-weight: 400;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+
+
+// =============================== node page view scss  ================================================
+
+
+
+// =============================== node 1 tooltip style   ================================================
+
+
+.all_node_tooltip_style{
+ background-color: #113034;
+ border: 6px solid #c1b09f;
+ padding: 10px;
+ p{
+  color: #d3b683;
+ }
+}
+
+
+// ===============================  node 1 tooltip style  ================================================
+
+
+
+// ===============================  same as the pdf tooltip   ================================================
+
+// Optional variables (tweak as needed)
+$tooltip-bg: #ffffff;
+$tooltip-text: #222222;
+$tooltip-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+$badge-bg: #222222;
+$font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  sans-serif;
+
+// Outer tooltip wrapper you already use
+
+
+// Core node tooltip
+.node-tooltip {
+  width: 100%;
+  max-width: min(380px, 90vw); // never bigger than viewport
+  background: $tooltip-bg;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: $tooltip-shadow;
+  font-family: $font-family-base;
+  color: $tooltip-text;
+  box-sizing: border-box;
+  font-weight: 300; 
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  &__badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: $badge-bg;
+    color: #ffffff;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    max-width: 90%; // so it doesn’t overflow on very small screens
+    box-sizing: border-box;
+
+    &-title {
+ 
+	font-size: 23px;
+  font-weight: 500;
+  letter-spacing: 1.9px;
+  font-family: "Rajdhani", Sans-serif;
+
+    }
+
+    &-subtitle {
+  
+font-size: 15px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  color: #fff;
+  font-family: "Rajdhani", Sans-serif;
+
+    }
+  }
+
+  &__body {
+    display: flex;
+    padding: 12px 14px 14px;
+    background: #ffffff;
+    box-sizing: border-box;
+  }
+
+  &__metrics {
+    flex: 0 0 auto;
+    text-align: left;
+    margin-right: 16px;
+    // allow wrapping on small widths
+
+  font-size: 15px;
+  font-family: "Rajdhani", Sans-serif;
+  letter-spacing: .5px;
+  font-weight: 500;
+
+    &-main {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    &-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    &-unit {
+      font-size: 0.8rem;
+      margin-left: 4px;
+    }
+
+    &-sub {
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+  }
+
+    &__divider {
+    flex: 0 0 1px;       // make it a 1px wide column
+    align-self: stretch; // stretch from top to bottom of the flex row
+    background: #222;
+    opacity: 0.5;        // or 1 if you prefer
+  }
+
+
+  &__text {
+    flex: 1 1 auto;
+  margin-left: 16px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+  text-align: left;
+  font-weight: 300; // long words/descriptions won’t overflow
+
+    p {
+      margin: 0 0px !important;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  /* Tablet-ish: tighten things up a bit */
+  @media (max-width: 768px) {
+    max-width: 90vw;
+
+    &__body {
+      padding: 10px 12px 12px;
+    }
+
+    &__metrics {
+      margin-right: 12px;
+
+      &-value {
+        font-size: 1.3rem;
+      }
+
+      &-sub,
+      &-unit {
+        font-size: 0.75rem;
+      }
+    }
+
+    &__text {
+      font-size: 0.7rem;
+      margin-left: 12px;
+    }
+  }
+
+  // Small phones: stack vertically
+  @media (max-width: 480px) {
+    max-width: 95vw;
+
+    &__body {
+      flex-direction: column;
+    }
+
+    &__metrics {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-start;
+      margin-right: 0;
+      margin-bottom: 8px;
+
+      &-sub {
+        margin-left: 12px;
+        margin-top: 0;
+      }
+    }
+
+    &__divider {
+      width: 100%;
+      height: 1px;
+      margin: 8px 0;
+      flex: 0 0 auto;    // horizontal rule in stacked layout
+      align-self: auto;
+    }
+
+    &__text {
+      margin-left: 0;
+    }
+  }
+
+}
+
+
+// ===============================  same as the pdf tooltip   ================================================
+ 
