@@ -632,19 +632,19 @@ window.addEventListener("DOMContentLoaded", (irkcontent) => {
   });
 
 
-     // ====== Utilities for accurate positioning ======
-function getClientPoint(ev) {
+  // ====== Utilities for accurate positioning ======
+  function getClientPoint(ev) {
     if (ev.touches && ev.touches[0]) {
-        return { x: ev.touches[0].clientX, y: ev.touches[0].clientY };
+      return { x: ev.touches[0].clientX, y: ev.touches[0].clientY };
     }
     if (ev.changedTouches && ev.changedTouches[0]) {
-        return { x: ev.changedTouches[0].clientX, y: ev.changedTouches[0].clientY };
+      return { x: ev.changedTouches[0].clientX, y: ev.changedTouches[0].clientY };
     }
     return { x: ev.clientX, y: ev.clientY };
-}
+  }
 
-// Smart positioning inside tooltip's offsetParent
-function placeSmartInContainer(el, ev, pad = 8,tooltipTop,tooltipLeft) {
+  // Smart positioning inside tooltip's offsetParent
+  function placeSmartInContainer(el, ev, pad = 8, tooltipTop, tooltipLeft) {
     el.style.position = "absolute";
 
     const parent = el.offsetParent || document.body;
@@ -680,13 +680,13 @@ function placeSmartInContainer(el, ev, pad = 8,tooltipTop,tooltipLeft) {
     if (top + h > contentH) top = relY - h - pad;
     top = Math.max(0, Math.min(top, contentH - h));
 
-    el.style.left = (left + padL) + tooltipLeft+"px";
-    el.style.top = (top + padT) + tooltipTop+ "px";
+    el.style.left = (left + padL) + tooltipLeft + "px";
+    el.style.top = (top + padT) + tooltipTop + "px";
 
     el.style.visibility = prevVis || "visible";
     el.style.display = prevDisp || "block";
-}
-const allnode_id = ['node_1','node_2','node_3','node_4','node_5'];
+  }
+  const allnode_id = ['node_1', 'node_2', 'node_3', 'node_4', 'node_5'];
   function showTooltip(hover) {
     let ct = hover.target;
     let data_name = ct.dataset;
@@ -699,37 +699,37 @@ const allnode_id = ['node_1','node_2','node_3','node_4','node_5'];
       ct.style.fillOpacity = "1";
       ct.style.opacity = "1";
       // return;
-    } else{
+    } else {
 
 
-        const isNode = allnode_id.includes(ct.id);
+      const isNode = allnode_id.includes(ct.id);
 
-    // ✔ If id is in the node list → add opacity .5  
-    if (isNode) {
+      // ✔ If id is in the node list → add opacity .5  
+      if (isNode) {
         ct.style.opacity = "0.5";
         ct.style.strokeWidth = "1px";
         ct.style.fillOpacity = "0.5";
-    } 
-    
-    // ✔ If id is NOT in list → opacity 1  
-    else {
+      }
+
+      // ✔ If id is NOT in list → opacity 1  
+      else {
         ct.style.opacity = "1";
         ct.style.fillOpacity = "1";
-        ct.style.fill ='red';
-            ct.style.strokeWidth = ".5px";
+        ct.style.fill = 'red';
+        ct.style.strokeWidth = ".5px";
+      }
+
+
+
+
+      //  ct.style.stroke = "red";
+
+      //     ct.style.fill = data_name.hover ? data_name.hover : "";
+      //     ct.style.cursor = "pointer";
+      //     ct.style.fillOpacity = "1";
     }
 
 
-
-
-//  ct.style.stroke = "red";
-
-//     ct.style.fill = data_name.hover ? data_name.hover : "";
-//     ct.style.cursor = "pointer";
-//     ct.style.fillOpacity = "1";
-    }
-
-   
 
 
     tooltip.style.display = "block";
@@ -738,53 +738,62 @@ const allnode_id = ['node_1','node_2','node_3','node_4','node_5'];
     let cy = hover.clientY;
     // tooltip.style.left = hover.offsetX + "px";
     // tooltip.style.top = hover.offsetY - tooltip.offsetHeight + "px";
-     placeSmartInContainer(tooltip, hover, 12,-50,-10);
+    placeSmartInContainer(tooltip, hover, 12, -50, -10);
     // console.log(    hover.offsetX - tooltip.offsetWidth)
     // tooltip.style.top = hover.layerY + "px";
     // tooltip.style.left = hover.layerX + "px";
   }
 
-  function hideTooltip(ev) {
+function hideTooltip(ev) {
     let ct = ev.target;
-    if (ct.id == "cupola_weatherane") {
-      return;
+
+    if (ct.id === "cupola_weatherane") {
+        return;
     }
 
+    /* -------------------------------------------------
+       1) If this is the clicked node → KEEP its style
+       ------------------------------------------------- */
+    if (ct.id === style_clicked_id) {
+        ct.style.opacity = "1";
+        ct.style.fillOpacity = "1";
+        tooltip.style.display = "none";
+        return;
+    }
 
-    if (ct.id == style_clicked_id) {
-      ct.style.opacity = "1";
-      ct.style.fillOpacity = "1";
+    /* -------------------------------------------------
+       2) Otherwise, apply logic for nodes / non-nodes
+       ------------------------------------------------- */
+    const isNode = allnode_id.includes(ct.id);
+
+    if (isNode) {
+        // If this node is the clicked node (correct check)
+        if (ct.id === style_clicked_id) {
+            ct.style.fillOpacity = "0.5";
+            ct.style.opacity = "0.5";
+        } else {
+            // Dim normal nodes
+            ct.style.strokeWidth = "1px";
+            ct.style.fillOpacity = "0.1";
+            ct.style.opacity = "0.1";
+        }
 
     } else {
+        // Non-node elements
+        ct.style.stroke = "#494949";
+        let data_name = ct.dataset;
 
-          const isNode = allnode_id.includes(ct.id);
-
-    // ✔ If id is in the node list → add opacity .5  
-    if (isNode) {
-       
-        ct.style.strokeWidth = "1px";
-        ct.style.fillOpacity = "0.1";
-    } else{
- // ct.style.opacity = ".2";
-      ct.style.stroke = "#494949";
-      let data_name = ct.dataset;
-        if (data_name.fill !== '') {
-
-        ct.style.fill = data_name.fill || "";
-      }
-      else if (data_name.partially_sponsored !== '') {
-        ct.style.fill = data_name.partially_sponsored || "";
-      }
-    }
-     
-
-    
+        if (data_name.fill !== "") {
+            ct.style.fill = data_name.fill || "";
+        } 
+        else if (data_name.partially_sponsored !== "") {
+            ct.style.fill = data_name.partially_sponsored || "";
+        }
     }
 
-
-    // ct.style.fill = data_name.fill ? data_name.fill : "";
     tooltip.style.display = "none";
-  }
+}
+
   let isFirstClick = true;
 
 
@@ -824,6 +833,16 @@ const allnode_id = ['node_1','node_2','node_3','node_4','node_5'];
     if (typeof ds.opacity !== "undefined" && ds.opacity !== "") {
       el.style.opacity = ds.opacity;
     } else {
+
+      const isNode = allnode_id.includes(el.id);
+
+      // ✔ If id is in the node list → add opacity .5  
+      if (isNode) {
+        el.style.opacity = "0.1";
+
+        el.style.fillOpacity = "0.1";
+      }
+
       // Default: if not set in dataset, remove inline opacity to let CSS show
       el.style.removeProperty("opacity");
     }
@@ -844,14 +863,26 @@ const allnode_id = ['node_1','node_2','node_3','node_4','node_5'];
 
     lotDetail.forEach(lot_id => {
       if (lot_id == ct.id) {
-        console.log(ct)
-        ct.style.fill = 'red';
-        ct.style.fillOpacity = '1';
-        ct.style.opacity = '1';
+
+        const isNode = allnode_id.includes(ct.id);
+
+        // ✔ If id is in the node list → add opacity .5  
+        if (isNode) {
+          ct.style.opacity = "0.5";
+
+          ct.style.fillOpacity = "0.5";
+          ct.style.fill = 'red';
+        } else {
+          ct.style.fill = 'red';
+          ct.style.fillOpacity = '1';
+          ct.style.opacity = '1';
 
 
 
-        style_clicked_id = ct.id;
+          style_clicked_id = ct.id;
+        }
+
+
       }
       else {
         return;
