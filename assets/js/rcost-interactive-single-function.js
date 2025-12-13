@@ -171,8 +171,22 @@ function rcostClick_func(ev, ct, mapD) {
       }
       finalURL.searchParams.set("unit", unit);
      
-  
-      window.location.href = finalURL.href;
+  function navigateFromFullscreen(url) {
+  if (document.fullscreenElement) {
+    document.exitFullscreen().then(() => {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          window.location.href = url;
+        }, 1000);
+      });
+    });
+  } else {
+    window.location.href = url;
+  }
+}
+
+navigateFromFullscreen(finalURL.href);
+      // window.location.href = finalURL.href;
 }
 
 

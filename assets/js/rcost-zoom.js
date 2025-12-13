@@ -586,8 +586,10 @@ function navigateFromFullscreen(url) {
   if (document.fullscreenElement) {
     document.exitFullscreen().then(() => {
       requestAnimationFrame(() => {
-        window.location.href = url;
-      });
+  setTimeout(() => {
+          window.location.href = url;
+        }, 1000);
+      }); 
     });
   } else {
     window.location.href = url;
