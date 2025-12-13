@@ -578,7 +578,25 @@ function rcostClick_func(ev, ct, mapD) {
       finalURL.searchParams.set("unit", unit);
      
   
-      window.location.href = finalURL.href;
+
+/* =========================
+   FULLSCREEN SAFE NAVIGATION
+   ========================= */
+function navigateFromFullscreen(url) {
+  if (document.fullscreenElement) {
+    document.exitFullscreen().then(() => {
+      requestAnimationFrame(() => {
+        window.location.href = url;
+      });
+    });
+  } else {
+    window.location.href = url;
+  }
+}
+
+navigateFromFullscreen(finalURL.href);
+      
+      // window.location.href = finalURL.href;
 }
 
 
