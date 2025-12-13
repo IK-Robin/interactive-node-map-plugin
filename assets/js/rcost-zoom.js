@@ -41,8 +41,28 @@ function ikrZoom({
   ikrsvg.style.transformOrigin = "0 0";
 
   /* ---------- store original size for fullscreen restore ---------- */
-  const originalWidth = ikrsvg.style.width || "";
-  const originalHeight = ikrsvg.style.height || "";
+  const originalStyles = {
+  width: ikrsvg.style.width || "",
+  height: ikrsvg.style.height || "",
+  transform: ikrsvg.style.transform || "",
+  translate: ikrsvg.style.translate || "",
+};
+
+
+function resetZoomState() {
+  currentScale = 1;
+  ts.scale = 1;
+  ts.translate.x = 0;
+  ts.translate.y = 0;
+
+  panEnabled = false;
+  ikrsvg.style.cursor = "default";
+
+  removePanning(); // removes listeners safely
+  ikrsvg.style.transform = ""; // 🔑 let CSS take over
+
+  applyTransform();
+}
 
   /* ---------- apply transform ---------- */
   function applyTransform() {
@@ -51,18 +71,31 @@ function ikrZoom({
   }
 
   /* ---------- FULLSCREEN SUPPORT ---------- */
-  function enterFullscreenStyles() {
-    ikrsvg.style.width = "100% !imprtent";
-    ikrsvg.style.height = "100%";
-    ikrsvg.style.translate = "0 0";
-    applyTransform();
-  }
+ function enterFullscreenStyles() {
+  // Allow fullscreen container to control size
+  ikrsvg.style.width = "100%";
+  ikrsvg.style.height = "100%";
+  ikrsvg.style.maxWidth = "100%";
+  ikrsvg.style.maxHeight = "100%";
 
-  function exitFullscreenStyles() {
-    ikrsvg.style.width = '100%';
-    ikrsvg.style.height = '100%';
-    applyTransform();
-  }
+  // keep current transform
+  applyTransform();
+}
+
+function exitFullscreenStyles() {
+  // 🔥 IMPORTANT: remove inline sizing
+  ikrsvg.style.width = originalStyles.width;
+  ikrsvg.style.height = originalStyles.height;
+  ikrsvg.style.maxWidth = "";
+  ikrsvg.style.maxHeight = "";
+
+  // 🔥 restore transform ONLY if zoomed
+  applyTransform();
+  
+  ikrsvg.style.transform = "translate(0) scale(1)";
+  
+}
+
 
   if (ENABLE_FULLSCREEN_BUTTON) {
     const fsBtn = document.createElement("button");
@@ -114,8 +147,11 @@ function ikrZoom({
 
     document.addEventListener("fullscreenchange", () => {
       if (document.fullscreenElement === container) {
+        resetZoomState();      
         enterFullscreenStyles();
       } else {
+
+        resetZoomState();      // 🔥 HARD RESET
         exitFullscreenStyles();
       }
     });
@@ -229,16 +265,19 @@ function ikrZoom({
     applyTransform();
   });
 
-  resetBtn.addEventListener("click", () => {
-    currentScale = 1;
-    ts.scale = 1;
-    ts.translate.x = 0;
-    ts.translate.y = 0;
-    panEnabled = false;
-    ikrsvg.style.cursor = "default";
-    removePanning();
-    applyTransform();
-  });
+  // resetBtn.addEventListener("click", () => {
+  //   currentScale = 1;
+  //   ts.scale = 1;
+  //   ts.translate.x = 0;
+  //   ts.translate.y = 0;
+  //   panEnabled = false;
+  //   ikrsvg.style.cursor = "default";
+  //   removePanning();
+  //   applyTransform();
+  // });
+
+
+  resetBtn.addEventListener("click", resetZoomState);
 
   /* ---------- panning (unchanged) ---------- */
   let startX, startY, startTX, startTY;

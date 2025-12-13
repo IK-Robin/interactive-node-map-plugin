@@ -113,6 +113,14 @@ function ikrwmap_add_frontend_script()
          IKRNMAP_VERSION, 
          true);
 
+         wp_enqueue_style(
+            'add-rcost-style',
+            plugin_dir_url(__FILE__) . '../assets/style/renishaw-style/rcost-fontend.css',
+            array(),
+            IKRNMAP_VERSION,
+            'all'
+        );
+
     }
 
 
