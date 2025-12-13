@@ -1,4 +1,4 @@
-
+console.log(ikrnmap_get_url_frontend.home_url);
  
  function init_interactive_map({
     mapData,

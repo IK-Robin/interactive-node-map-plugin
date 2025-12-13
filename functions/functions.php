@@ -97,11 +97,27 @@ function ikrwmap_add_frontend_script()
         array(),
          IKRNMAP_VERSION, 
          true);
+
+
+                wp_localize_script(
+            'ikrnmap-component',
+            'ikrnmap_get_url_frontend',
+            [
+                'featchdata' => 'ikrwmap_retrieveData_from_db',
+                'ajax_url'   => admin_url('admin-ajax.php'),
+                'home_url'   => home_url('/'),
+            ]
+            );
         wp_enqueue_script('ikrnmap-interactive-single-function', 
         plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js', 
         array(),
          IKRNMAP_VERSION, 
          true);
+
+
+  
+
+
         wp_enqueue_script('ikrnmap-zoom', 
         plugin_dir_url(__FILE__) . '../assets/js/rcost-zoom.js', 
         array(),
