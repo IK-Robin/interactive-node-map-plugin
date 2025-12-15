@@ -79,5 +79,5 @@ get_header();
 
 
 
-include_once IKRWMAP_ROBIN_DIR_PATH_WORLD . 'views/ikr-node-map-1.php';
+include_once IKRWMAP_ROBIN_DIR_PATH_WORLD . 'views/fontend/node-1-map.php';
 get_footer();
