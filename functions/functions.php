@@ -145,7 +145,7 @@ function ikrwmap_add_frontend_script()
     if(is_singular('page') && is_page('node-details') ){
         // add the filter js 
           wp_enqueue_script('ikrnmap-interactive-filter', 
-        plugin_dir_url(__FILE__) . '../assets/js/', 
+        plugin_dir_url(__FILE__) . '../assets/js/filter-top-menu.js', 
         array(),
          IKRNMAP_VERSION, 
          true);
