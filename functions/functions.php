@@ -150,14 +150,7 @@ function ikrwmap_add_frontend_script()
 
     // enqueue the js if the page is single and the page name is node-details 
     if (is_singular('page') && is_page('node-details')) {
-        // add the filter js 
-        wp_enqueue_script(
-            'ikrnmap-interactive-filter',
-            plugin_dir_url(__FILE__) . '../assets/js/filter-top-menu.js',
-            array(),
-            IKRNMAP_VERSION,
-            true
-        );
+     
 
 
           wp_enqueue_script(
@@ -197,6 +190,25 @@ function ikrwmap_add_frontend_script()
             IKRNMAP_VERSION,
             true
         );
+        wp_enqueue_script(
+            'node-details-interactivity',
+            plugin_dir_url(__FILE__) . '../assets/js/rcost-node-1-data.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
+
+
+           // add the filter js 
+        wp_enqueue_script(
+            'ikrnmap-interactive-filter',
+            plugin_dir_url(__FILE__) . '../assets/js/filter-top-menu.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
+
+
         //enqueue the style 
         wp_enqueue_style(
             'add-details-page-style',
