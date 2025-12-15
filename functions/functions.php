@@ -141,6 +141,24 @@ function ikrwmap_add_frontend_script()
 
 
 
+    // enqueue the js if the page is single and the page name is node-details 
+    if(is_singular('page') && is_page('node-details') ){
+        // add the filter js 
+        
+
+        //enqueue the style 
+        wp_enqueue_style(
+            'add-details-page-style',
+            plugin_dir_url(__FILE__) .'../assets/style/renishaw-style/rcost-fontend.css',
+            array(),
+            IKRNMAP_VERSION,
+            'all'
+
+        );
+    }
+        
+
+
 
 
     // Ensure we have a post object
