@@ -101,11 +101,11 @@ function ikrwmap_add_frontend_script()
 
                 wp_localize_script(
             'ikrnmap-component',
-            'ikrnmap_get_url_frontend',
+            'ikrnmap_get_frontend_variable',
             [
                 'featchdata' => 'ikrwmap_retrieveData_from_db',
                 'ajax_url'   => admin_url('admin-ajax.php'),
-                'home_url'   => home_url('/'),
+                'home_url'   => home_url('/') . 'node-details',
             ]
             );
         wp_enqueue_script('ikrnmap-interactive-single-function', 
