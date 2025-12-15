@@ -92,14 +92,16 @@ function ikrwmap_add_frontend_script()
     if (is_singular('page') && has_shortcode(get_post()->post_content, 'all-nodes-map')) {
         // shortcode exists AND this is a single page
         // register/enqueue your JS here
-        wp_enqueue_script('ikrnmap-component', 
-        plugin_dir_url(__FILE__) . '../assets/js/rcost-component.js', 
-        array(),
-         IKRNMAP_VERSION, 
-         true);
+        wp_enqueue_script(
+            'ikrnmap-component',
+            plugin_dir_url(__FILE__) . '../assets/js/rcost-component.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
 
 
-                wp_localize_script(
+        wp_localize_script(
             'ikrnmap-component',
             'ikrnmap_get_frontend_variable',
             [
@@ -107,60 +109,105 @@ function ikrwmap_add_frontend_script()
                 'ajax_url'   => admin_url('admin-ajax.php'),
                 'home_url'   => home_url('/') . 'node-details',
             ]
-            );
-        wp_enqueue_script('ikrnmap-interactive-single-function', 
-        plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js', 
-        array(),
-         IKRNMAP_VERSION, 
-         true);
+        );
+        wp_enqueue_script(
+            'ikrnmap-interactive-single-function',
+            plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
 
 
-  
 
 
-        wp_enqueue_script('ikrnmap-zoom', 
-        plugin_dir_url(__FILE__) . '../assets/js/rcost-zoom.js', 
-        array(),
-         IKRNMAP_VERSION, 
-         true);
-        wp_enqueue_script('ikrnmap-interactive-clean-interactive', 
-        plugin_dir_url(__FILE__) . '../assets/js/clean-interactive.js', 
-        array(),
-         IKRNMAP_VERSION, 
-         true);
 
-         wp_enqueue_style(
+        wp_enqueue_script(
+            'ikrnmap-zoom',
+            plugin_dir_url(__FILE__) . '../assets/js/rcost-zoom.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
+        wp_enqueue_script(
+            'ikrnmap-interactive-clean-interactive',
+            plugin_dir_url(__FILE__) . '../assets/js/clean-interactive.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
+
+        wp_enqueue_style(
             'add-rcost-style',
             plugin_dir_url(__FILE__) . '../assets/style/renishaw-style/rcost-fontend.css',
             array(),
             IKRNMAP_VERSION,
             'all'
         );
-
     }
 
 
 
     // enqueue the js if the page is single and the page name is node-details 
-    if(is_singular('page') && is_page('node-details') ){
+    if (is_singular('page') && is_page('node-details')) {
         // add the filter js 
-          wp_enqueue_script('ikrnmap-interactive-filter', 
-        plugin_dir_url(__FILE__) . '../assets/js/filter-top-menu.js', 
-        array(),
-         IKRNMAP_VERSION, 
-         true);
+        wp_enqueue_script(
+            'ikrnmap-interactive-filter',
+            plugin_dir_url(__FILE__) . '../assets/js/filter-top-menu.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
 
+
+          wp_enqueue_script(
+            'ikrnmap-component',
+            plugin_dir_url(__FILE__) . '../assets/js/rcost-component.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
+
+
+        wp_localize_script(
+            'ikrnmap-component',
+            'ikrnmap_get_frontend_variable',
+            [
+                'featchdata' => 'ikrwmap_retrieveData_from_db',
+                'ajax_url'   => admin_url('admin-ajax.php'),
+                'home_url'   => home_url('/') . 'node-details',
+            ]
+        );
+        wp_enqueue_script(
+            'ikrnmap-interactive-single-function',
+            plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
+
+
+
+
+
+        wp_enqueue_script(
+            'ikrnmap-zoom',
+            plugin_dir_url(__FILE__) . '../assets/js/rcost-zoom.js',
+            array(),
+            IKRNMAP_VERSION,
+            true
+        );
         //enqueue the style 
         wp_enqueue_style(
             'add-details-page-style',
-            plugin_dir_url(__FILE__) .'../assets/style/renishaw-style/rcost-fontend.css',
+            plugin_dir_url(__FILE__) . '../assets/style/renishaw-style/rcost-fontend.css',
             array(),
             IKRNMAP_VERSION,
             'all'
 
         );
     }
-        
+
 
 
 
