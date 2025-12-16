@@ -267,47 +267,25 @@ function mobileZoom({
 
   // If item.link is already absolute (http/https), just use it
   const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(node.link);
+  
+ 
+
+   
   let finalURL;
 
-  if (isAbsolute) {
-    finalURL = new URL(node.link);
-  } else if (node.link.startsWith("/")) {
-    // root-absolute path on the current origin
-    finalURL = new URL(node.link, origin);
-  } else {
-    // Determine project root:
-    // - If on GitHub Pages (hostname ends with github.io), assume repo is first path segment: /<repo>/...
-    // - Otherwise (localhost or custom server) assume the app is served from root "/"
-    let projectRoot = "/"; // default for localhost and typical dev servers
-
-    if (window.location.hostname.endsWith("github.io")) {
-      // take first path segment as repo name if present
-      const segs = pathname.split("/").filter(Boolean); // removes empty strings
-      if (segs.length > 0) {
-        projectRoot = `/${segs[0]}/`; // e.g. "/Renishaw-Coastal-interactive-map/"
-      }
-    } else {
-      // If you serve your project from a subfolder locally, you can override this by setting a global var:
-      // window.PROJECT_ROOT = "/Renishaw-Coastal-interactive-map/";
-      if (typeof window.PROJECT_ROOT === "string" && window.PROJECT_ROOT.length > 0) {
-        projectRoot = window.PROJECT_ROOT;
-        if (!projectRoot.startsWith("/")) projectRoot = "/" + projectRoot;
-        if (!projectRoot.endsWith("/")) projectRoot += "/";
-      }
-    }
-
-    finalURL = new URL(node.link, origin + projectRoot);
-  }
-
-  // attach unit param (safely)
-  const unit = encodeURIComponent((node.id || "").trim());
-  if (unit) finalURL.searchParams.set("unit", unit);
-
-  console.log("finalURL:", finalURL.href);
+  finalURL = ikrnmap_get_frontend_variable.price_list_page;
+  node_1_data.forEach(item => {
+  // attach the lot id to get the lot id data from database 
+  const matching_lot_Id = encodeURIComponent((item.id || "").trim());
+  console.log(matching_lot_Id)
+ finalURL  = finalURL + "?unit=" + matching_lot_Id;
+ 
   // redirect:
-  window.location.href = finalURL.href;
+  window.location.href = finalURL;
+  // redirect:
+  // window.location.href = finalURL.href;
 
-
+});
 
         };
         // remove previous if present then add new
@@ -497,52 +475,24 @@ function attachDesktopRedirects() {
     if (!el) return;
     if (el._sf_desktop_redirect_attached) return;
  const fn = function () {
-  if (!item.link) return;
+  // if (!item.link) return;
 
   const origin = window.location.origin;              // e.g. https://ik-robin.github.io  or http://localhost:3000
   const pathname = window.location.pathname || "/";   // e.g. /Renishaw-Coastal-interactive-map/all-nodes/node-details.html
 
   // If item.link is already absolute (http/https), just use it
-  const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(item.link);
+  
   let finalURL;
 
-  if (isAbsolute) {
-    finalURL = new URL(item.link);
-  } else if (item.link.startsWith("/")) {
-    // root-absolute path on the current origin
-    finalURL = new URL(item.link, origin);
-  } else {
-    // Determine project root:
-    // - If on GitHub Pages (hostname ends with github.io), assume repo is first path segment: /<repo>/...
-    // - Otherwise (localhost or custom server) assume the app is served from root "/"
-    let projectRoot = "/"; // default for localhost and typical dev servers
-
-    if (window.location.hostname.endsWith("github.io")) {
-      // take first path segment as repo name if present
-      const segs = pathname.split("/").filter(Boolean); // removes empty strings
-      if (segs.length > 0) {
-        projectRoot = `/${segs[0]}/`; // e.g. "/Renishaw-Coastal-interactive-map/"
-      }
-    } else {
-      // If you serve your project from a subfolder locally, you can override this by setting a global var:
-      // window.PROJECT_ROOT = "/Renishaw-Coastal-interactive-map/";
-      if (typeof window.PROJECT_ROOT === "string" && window.PROJECT_ROOT.length > 0) {
-        projectRoot = window.PROJECT_ROOT;
-        if (!projectRoot.startsWith("/")) projectRoot = "/" + projectRoot;
-        if (!projectRoot.endsWith("/")) projectRoot += "/";
-      }
-    }
-
-    finalURL = new URL(item.link, origin + projectRoot);
-  }
-
-  // attach unit param (safely)
-  const unit = encodeURIComponent((item.id || "").trim());
-  if (unit) finalURL.searchParams.set("unit", unit);
-
-  console.log("finalURL:", finalURL.href);
+  finalURL = ikrnmap_get_frontend_variable.price_list_page;
+  
+  // attach the lot id to get the lot id data from database 
+  const matching_lot_Id = encodeURIComponent((item.id || "").trim());
+  console.log(matching_lot_Id)
+ finalURL  = finalURL + "?unit=" + matching_lot_Id;
+ 
   // redirect:
-  window.location.href = finalURL.href;
+  window.location.href = finalURL;
 };
 
 
@@ -593,46 +543,18 @@ const fn = function () {
   const pathname = window.location.pathname || "/";   // e.g. /Renishaw-Coastal-interactive-map/all-nodes/node-details.html
 
   // If item.link is already absolute (http/https), just use it
-  const isAbsolute = /^(?:[a-z]+:)?\/\//i.test(item.link);
+   
   let finalURL;
 
-  if (isAbsolute) {
-    finalURL = new URL(item.link);
-  } else if (item.link.startsWith("/")) {
-    // root-absolute path on the current origin
-    finalURL = new URL(item.link, origin);
-  } else {
-    // Determine project root:
-    // - If on GitHub Pages (hostname ends with github.io), assume repo is first path segment: /<repo>/...
-    // - Otherwise (localhost or custom server) assume the app is served from root "/"
-    let projectRoot = "/"; // default for localhost and typical dev servers
-
-    if (window.location.hostname.endsWith("github.io")) {
-      // take first path segment as repo name if present
-      const segs = pathname.split("/").filter(Boolean); // removes empty strings
-      if (segs.length > 0) {
-        projectRoot = `/${segs[0]}/`; // e.g. "/Renishaw-Coastal-interactive-map/"
-      }
-    } else {
-      // If you serve your project from a subfolder locally, you can override this by setting a global var:
-      // window.PROJECT_ROOT = "/Renishaw-Coastal-interactive-map/";
-      if (typeof window.PROJECT_ROOT === "string" && window.PROJECT_ROOT.length > 0) {
-        projectRoot = window.PROJECT_ROOT;
-        if (!projectRoot.startsWith("/")) projectRoot = "/" + projectRoot;
-        if (!projectRoot.endsWith("/")) projectRoot += "/";
-      }
-    }
-
-    finalURL = new URL(item.link, origin + projectRoot);
-  }
-
-  // attach unit param (safely)
-  const unit = encodeURIComponent((item.id || "").trim());
-  if (unit) finalURL.searchParams.set("unit", unit);
-
-  console.log("finalURL:", finalURL.href);
+  finalURL = ikrnmap_get_frontend_variable.price_list_page;
+  
+  // attach the lot id to get the lot id data from database 
+  const matching_lot_Id = encodeURIComponent((item.id || "").trim());
+  console.log(matching_lot_Id)
+ finalURL  = finalURL + "?unit=" + matching_lot_Id;
+ 
   // redirect:
-  window.location.href = finalURL.href;
+  window.location.href = finalURL;
 };
 
 
@@ -695,15 +617,20 @@ function createNodeSelect(dataArray) {
     // On desktop: redirect immediately (no delay)
     const chosen = e.target.selectedOptions[0];
     const link = chosen?.dataset?.link || node.link || '';
-    if (!link) return;
-    const unit = encodeURIComponent(id.trim());
-    const pathname = window.location.pathname || "/";
-    const basePath = pathname.replace(/\/[^/]*$/, "/");
-    const baseURL = window.location.origin;
-    let finalURL = new URL(link, baseURL + basePath);
-    if (basePath === "/all-nodes/") finalURL = new URL(link, baseURL);
-    finalURL.searchParams.set("unit", unit);
-    window.location.href = finalURL.href;
+    
+  
+     
+  let finalURL;
+
+  finalURL = ikrnmap_get_frontend_variable.price_list_page;
+  
+  // attach the lot id to get the lot id data from database 
+  const matching_lot_Id = encodeURIComponent((item.id || "").trim());
+  console.log(matching_lot_Id)
+ finalURL  = finalURL + "?unit=" + matching_lot_Id;
+ 
+  // redirect:
+  window.location.href = finalURL;
   });
 
   container.appendChild(select);
