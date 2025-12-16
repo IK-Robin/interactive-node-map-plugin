@@ -9,7 +9,11 @@
 
 defined('ABSPATH') || exit;
 // get the url query parameter 'unit'
-$node_url_unit = sanitize_text_field( $_GET['unit'] );
+
+if(isset($_GET['unit'])){
+
+  $node_url_unit = sanitize_text_field( $_GET['unit'] );
+} 
 
 
 
