@@ -124,6 +124,59 @@ function renderTooltipContentNode_lavel(mapD) {
 }
 
 
+function renderTooltipContent_all_nodes(mapD) {
+  // mapD is expected to have:
+  // mapD.nodeName, mapD.nodeSubtitle, mapD.imageUrl,
+  // mapD.area, mapD.sites, mapD.desc1, mapD.desc2, mapD.desc3
+
+  const nodeName = mapD.node;
+  const nodeSubtitle = mapD.nodeSubtitle || (mapD.developmentType || "");
+  const area = mapD.area || mapD.size || "";
+  const sites = mapD.lotNumber || "";
+  const img = mapD.imageUrl || "https://via.placeholder.com/600x300";
+
+  return `
+    <div class="rcost-plot-tooltip">
+      <div class="node-tooltip">
+        <div class="node-tooltip__image-wrapper">
+          <img
+            src="${img}"
+            alt="${nodeName}"
+            class="node-tooltip__image"
+          />
+          <div class="node-tooltip__badge">
+            <div class="node-tooltip__badge-title"> ${nodeName}</div>
+            <div class="node-tooltip__badge-subtitle">
+              ${nodeSubtitle}
+            </div>
+          </div>
+        </div>
+
+        <div class="node-tooltip__body">
+          <div class="node-tooltip__metrics">
+            <div class="node-tooltip__metric-main">
+              <span class="node-tooltip__metric-value">${area}</span>
+            </div>
+            ${sites
+      ? `<div class="node-tooltip__metric-sub">${sites} Sites</div>`
+      : ""
+    }
+          </div>
+
+          <div class="node-tooltip__divider"></div>
+
+          <div class="node-tooltip__text">
+            ${mapD.description
+      ? `<p>${mapD.description}</p>`
+      : ""
+    }
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
 
 // MOBILE INTERACTIVITY FOR  the map 
 

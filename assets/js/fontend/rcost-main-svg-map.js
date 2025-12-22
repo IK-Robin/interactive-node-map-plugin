@@ -280,10 +280,10 @@ document.getElementById('reset').onclick = zoom.reset;
 document.getElementById('fullscreen_btn').onclick = zoom.toggleFullscreen;
 
 
-initMapDataFilter({
-  mapData: node_1_data,
-  zoomInstance: zoom
-});
+// initMapDataFilter({
+//   mapData: node_1_data,
+//   zoomInstance: zoom
+// });
 
 // add the interactivity on the svg plots
 if (isMobile_devices) {
@@ -299,7 +299,7 @@ if (isMobile_devices) {
 
 } else {
   init_interactive_map({
-    mapData: node_1_data, mapId: node1_id, tooltipElementId: "ikr_toltipMove", svgElementId: "ikr_svg", renderTooltipContent: renderTooltipContentNode_lavel, tooltipLeft: 20, tooltipTop: 10,
+    mapData: node_1_data, mapId: node1_id, tooltipElementId: "ikr_toltipMove", svgElementId: "ikr_svg", renderTooltipContent: renderTooltipContent_all_nodes, tooltipLeft: 20, tooltipTop: 10,
     // Hover IN: Animate stroke + change fill
     onLotHoverIn: (el) => {
   if (!el.classList.contains("anim-path")) return;

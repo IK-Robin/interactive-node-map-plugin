@@ -102,8 +102,8 @@ function ikrwmap_add_frontend_script()
 
         // it comee in future from database 
            wp_enqueue_script(
-        'rcost-data',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-data.js',
+        'rcost-data-all-node',
+        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-all-node-data.js',
         [],
         IKRNMAP_VERSION,
         true
@@ -129,13 +129,13 @@ function ikrwmap_add_frontend_script()
                 'home_url'   => home_url('/') . 'node-details',
             ]
         );
-          wp_enqueue_script(
-        'rcost-svg-filter',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-filter.js',
-        [],
-        IKRNMAP_VERSION,
-        true
-    );
+    //       wp_enqueue_script(
+    //     'rcost-svg-filter',
+    //     plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-filter.js',
+    //     [],
+    //     IKRNMAP_VERSION,
+    //     true
+    // );
 
 
 
@@ -153,7 +153,7 @@ function ikrwmap_add_frontend_script()
 
       wp_enqueue_script(
         'rcost-svg-map-script',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-svg-map-script.js',
+        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-main-svg-map.js',
         [],
         IKRNMAP_VERSION,
         true
