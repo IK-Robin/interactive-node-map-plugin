@@ -80,7 +80,7 @@
   // height: 100vh;      /* or whatever height you want */
   //  overflow: hidden;
 }
-#ikr_svg {
+.ikr_svg {
   display: block;
   width: 100%; /* SVG scales with container width */
   height: auto;
@@ -109,7 +109,7 @@
 // }
 
 /* The raster image inside the SVG */
-#ikr_svg image {
+.ikr_svg image {
   /* Prefer quality in Chromium */
   image-rendering: -webkit-optimize-contrast;
   /* Fallbacks for other engines */
@@ -314,14 +314,14 @@ create the mobile view layout and  button
     height: 500px;
   }
 }
-#ikr_svg {
+.ikr_svg {
   display: block;
   width: 40%;
   height: auto;
   margin: 0 auto;
   image-rendering: optimizeQuality;
 }
-#ikr_svg image {
+.ikr_svg image {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;
 }
@@ -340,7 +340,7 @@ create the mobile view layout and  button
   cursor: pointer;
 }
 @media (max-width: 768px) {
-  #ikr_svg{
+  .ikr_svg{
     width: 100% !important;
     height: 100% !important;
   }
@@ -363,10 +363,7 @@ create the mobile view layout and  button
 .map-section {
   position: relative;
 }
-.map-overlay {
-  position: absolute;
-  inset: 0;
-}
+
 
 .plot-panel {
   display: none; /* Hidden by default */
@@ -512,11 +509,11 @@ add animation to the  svg path
 
       /* ---------- Highlight stroke (white, thicker) ---------- */
       .anim-path.highlight {
-        stroke: #ffffff;
+        stroke: #ffffff !important;
         stroke-width: var(--stroke-w, 1);
         /* change this value! */
         stroke-linecap: round;
-        fill: #fff;
+        fill: #fff ;
         fill-opacity: .6;
       }
      .anim-path.node_lot_highlight{
@@ -573,3 +570,18 @@ add animation to the  svg path
 // }
 
 
+#inlineSvg {
+	width: 100%;
+	height: 100%;
+  user-select: none;
+}
+
+#blockSelect option {
+    padding: 4px 8px;
+}
+
+#blockSelect option::before {
+    content: '●';
+    margin-right: 8px;
+    font-size: 14px;
+}

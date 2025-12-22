@@ -1,249 +1,5 @@
-// old data 
-
-
-const node1_id = [
-  "node_1_154",
-  "node_1_153",
-  "node_1_109",
-  "node_1_108",
-  "node_1_107",
-  "node_1_105",
-  "node_1_103",
-  "node_1_123",
-  "node_1_121",
-  "node_1_119",
-  "node_1_116",
-  "node_1_115",
-  "node_1_114",
-  "node_1_90",
-  "node_1_180",
-  "node_1_80",
-  "node_1_60",
-  "node_1_61",
-  "node_1_62",
-  "node_1_63",
-  "node_1_58",
-  "node_1_56",
-  "node_1_57",
-  "node_1_53",
-  "node_1_52",
-  "node_1_51",
-  "node_1_50",
-  "node_1_49",
-  "node_1_54",
-  "node_1_76",
-  "node_1_55",
-  "node_1_78",
-  "node_1_79",
-  "node_1_32",
-  "node_1_46",
-  "node_1_47",
-  "node_1_48",
-  "node_1_38",
-  "node_1_39",
-  "node_1_45",
-  "node_1_44",
-  "node_1_31",
-  "node_1_30",
-  "node_1_28",
-  "node_1_27",
-  "node_1_26",
-  "node_1_25",
-  "node_1_24",
-  "node_1_10",
-  "node_1_12",
-  "node_1_13",
-  "node_1_15380",
-  "node_1_52530",
-  "node_1_204",
-  "node_1_126",
-  "node_1_240717",
-  "node_1_227",
-  "node_1_229",
-  "node_1_151",
-  "node_1_239",
-  "node_1_68",
-  "node_1_4",
-  "node_1_5",
-  "node_1_160",
-  "node_1_16",
-  "node_1_15",
-  "node_1_195",
-  "node_1_67",
-  "node_1_189",
-  "node_1_181",
-  "node_1_190",
-  "node_1_182",
-  "node_1_125",
-  "node_1_225",
-  "node_1_137",
-  "node_1_124",
-  "node_1_122",
-  "node_1_120",
-  "node_1_119-2",
-  "node_1_117",
-  "node_1_228",
-  "node_1_186",
-  "node_1_33",
-  "node_1_34",
-  "node_1_35",
-  "node_1_98",
-  "node_1_97",
-  "node_1_96",
-  "node_1_95",
-  "node_1_92",
-  "node_1_91",
-  "node_1_100",
-  "node_1_152",
-  "node_1_156",
-  "node_1_163",
-  "node_1_183",
-  "node_1_187",
-  "node_1_59",
-  "node_1_3",
-  "node_1_8",
-  "node_1_9",
-  "node_1_110",
-  "node_1_217",
-  "node_1_255",
-  "node_1_185",
-  "node_1_184",
-  "node_1_11",
-  "node_1_1",
-  "node_1_149",
-  "node_1_112",
-  "node_1_111",
-  "node_1_113",
-  "node_1_139",
-  "node_1_148",
-  "node_1_101",
-  "node_1_104",
-  "node_1_102",
-  "node_1_106",
-  "node_1_136",
-  "node_1_138",
-  "node_1_145",
-  "node_1_133",
-  "node_1_159",
-  "node_1_162",
-  "node_1_1585_m",
-  "node_1_249",
-  "node_1_1939_m",
-  "node_1_29",
-  "node_1_188",
-  "node_1_6",
-  "node_1_7",
-  "node_1_23",
-  "node_1_22",
-  "node_1_19",
-  "node_1_17",
-  "node_1_14",
-  "node_1_81",
-  "node_1_43",
-  "node_1_42",
-  "node_1_75",
-  "node_1_74",
-  "node_1_73",
-  "node_1_72",
-  "node_1_71",
-  "node_1_70",
-  "node_1_69",
-  "node_1_77",
-  "node_1_21",
-  "node_1_20",
-  "node_1_18",
-  "node_1_64",
-  "node_1_65",
-  "node_1_66",
-  "node_1_41",
-  "node_1_40",
-  "node_1_36",
-  "node_1_37",
-  "node_1_93",
-  "node_1_94",
-  "node_1_155",
-  "node_1_150",
-  "node_1_161",
-  "node_1_158",
-  "node_1_157",
-  "node_1_150-2",
-  "node_1_147",
-  "node_1_142",
-  "node_1_143",
-  "node_1_166",
-  "node_1_236",
-  "node_1_235",
-  "node_1_234",
-  "node_1_233",
-  "node_1_232",
-  "node_1_231",
-  "node_1_246",
-  "node_1_247",
-  "node_1_248",
-  "node_1_251",
-  "node_1_205",
-  "node_1_206",
-  "node_1_207",
-  "node_1_208",
-  "node_1_209",
-  "node_1_210",
-  "node_1_211",
-  "node_1_212",
-  "node_1_213",
-  "node_1_252",
-  "node_1_253",
-  "node_1_214",
-  "node_1_215",
-  "node_1_216",
-  "node_1_218",
-  "node_1_219",
-  "node_1_220",
-  "node_1_221",
-  "node_1_222",
-  "node_1_223",
-  "node_1_224",
-  "node_1_134",
-  "node_1_135",
-  "node_1_140",
-  "node_1_141",
-  "node_1_144",
-  "node_1_146",
-  "node_1_132",
-  "node_1_131",
-  "node_1_130",
-  "node_1_129",
-  "node_1_226_M",
-  "node_1_129-2",
-  "node_1_238",
-  "node_1_243",
-  "node_1_244",
-  "node_1_245",
-  "node_1_228-2",
-  "node_1_227-2",
-  "node_1_199",
-  "node_1_200",
-  "node_1_202",
-  "node_1_198",
-  "node_1_203",
-  "node_1_201",
-  "node_1_240",
-  "node_1_241",
-  "node_1_242",
-  "node_1_164"
-]
-
-
-
 const node_1_data = [
-  {
-    "id": "node_1_2",
-    "lot": "PLOT NO. 2",
-    "size": "910m²",
-    "developmentType": "RESIDENTIAL ONLY 1",
-    "status": "available",
-    "link": "node-details.html",
-    "price": 4492343
-  },
+
   {
     "id": "node_1_3",
     "lot": "PLOT NO. 3",
@@ -947,15 +703,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 8905184
   },
-  {
-    "id": "node_1_99",
-    "lot": "PLOT NO. 99",
-    "size": "939m²",
-    "developmentType": "RESIDENTIAL ONLY 2",
-    "status": "available",
-    "link": "node-details.html",
-    "price": 5275475
-  },
+ 
   {
     "id": "node_1_100",
     "lot": "PLOT NO. 100",
@@ -1083,15 +831,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 7003084
   },
-  {
-    "id": "node_1_118",
-    "lot": "PLOT NO. 118",
-    "size": "1149m²",
-    "developmentType": "RESIDENTIAL ONLY 2",
-    "status": "sold",
-    "link": "node-details.html",
-    "price": 4113686
-  },
+ 
   {
     "id": "node_1_119",
     "lot": "PLOT NO. 119",
@@ -1164,24 +904,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 174388265
   },
-  {
-    "id": "node_1_127",
-    "lot": "PLOT NO. 127",
-    "size": "850m²",
-    "developmentType": "RESIDENTIAL ONLY 2",
-    "status": "available",
-    "link": "node-details.html",
-    "price": 2841522
-  },
-  {
-    "id": "node_1_128",
-    "lot": "PLOT NO. 128",
-    "size": "1054m²",
-    "developmentType": "RESIDENTIAL ONLY 2",
-    "status": "sold",
-    "link": "node-details.html",
-    "price": 5294434
-  },
+ 
   {
     "id": "node_1_129",
     "lot": "PLOT NO. 129",
@@ -1517,25 +1240,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 10386793
   },
-  {
-    "id": "node_1_167",
-    "lot": "PLOT NO. 167",
-    "size": "2092m²",
-    "label": "P.U.B",
-    "developmentType": null,
-    "status": "sold",
-    "link": "node-details.html",
-    "price": 11197602
-  },
-  {
-    "id": "node_1_168",
-    "lot": "PLOT NO. 168",
-    "size": "9638m²",
-    "developmentType": "URBAN AGRICULTURE 2",
-    "status": "sold",
-    "link": "node-details.html",
-    "price": 51257998
-  },
+
   {
     "id": "node_1_180",
     "lot": "PLOT NO. 180",
@@ -1646,26 +1351,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 39896410
   },
-  {
-    "id": "node_1_192",
-    "lot": "PLOT NO. 192",
-    "size": "85223 m²",
-    "label": "Private Conservation Reserve",
-    "developmentType": null,
-    "status": "available",
-    "link": "node-details.html",
-    "price": 503089403
-  },
-  {
-    "id": "node_1_193",
-    "lot": "PLOT NO. 193",
-    "size": "",
-    "label": "",
-    "developmentType": null,
-    "status": "available",
-    "link": "node-details.html",
-    "price": 1394609
-  },
+ 
   {
     "id": "node_1_198",
     "lot": "PLOT NO. 198",
@@ -1891,15 +1577,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 587820645
   },
-  {
-    "id": "node_1_226",
-    "lot": "PLOT NO. 226",
-    "size": "5083m²",
-    "developmentType": "MUNICIPAL AND GOVERNMENT",
-    "status": "available",
-    "link": "node-details.html",
-    "price": 28782595
-  },
+
   {
     "id": "node_1_227",
     "lot": "PLOT NO. 227",
@@ -1927,15 +1605,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 432170122
   },
-  {
-    "id": "node_1_230",
-    "lot": "PLOT NO. 230",
-    "size": "6905m²",
-    "developmentType": "MEDIUM DENSITY RESIDENTIAL 1",
-    "status": "available",
-    "link": "node-details.html",
-    "price": 41573539
-  },
+
   {
     "id": "node_1_231",
     "lot": "PLOT NO. 231",
@@ -1945,15 +1615,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 3464401
   },
-  {
-    "id": "node_1_232",
-    "lot": "PLOT NO. 232",
-    "size": "735m²",
-    "developmentType": "RESIDENTIAL ONLY 2",
-    "status": "available",
-    "link": "node-details.html",
-    "price": 4054643
-  },
+ 
   {
     "id": "node_1_233",
     "lot": "PLOT NO. 233",
@@ -1990,15 +1652,7 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 1927442
   },
-  {
-    "id": "node_1_237",
-    "lot": "PLOT NO. 237",
-    "size": "1178m²",
-    "developmentType": "RESIDENTIAL ONLY 3",
-    "status": "sold",
-    "link": "node-details.html",
-    "price": 7111798
-  },
+ 
   {
     "id": "node_1_238",
     "lot": "PLOT NO. 238",
@@ -2127,256 +1781,240 @@ const node_1_data = [
     "link": "node-details.html",
     "price": 37517554
   },
-  {
-    "id": "node_1_254",
-    "lot": "PLOT NO. 254",
-    "size": "4609m²",
-    "landUse": "P.O.S",
-    "developmentType": null,
-    "status": "available",
-    "link": "node-details.html",
-    "price": 29289977
-  },
-  {
-    "id": "node_1_257",
-    "lot": "PLOT NO. 257",
-    "size": "12947m²",
-    "landUse": "Conservation Reserve",
-    "developmentType": null,
-    "status": "available",
-    "link": "node-details.html",
-    "price": 87578218
-  },
-  {
-    "id": "node_1_259",
-    "lot": "PLOT NO. 259",
-    "size": null,
-    "landUse": "Private Conservation Reserve",
-    "developmentType": null,
-    "status": "available",
-    "link": "node-details.html",
-    "price": 1857171
-  },
-  {
-    "id": "node_1_260",
-    "lot": "PLOT NO. 260",
-    "size": null,
-    "landUse": "Private Conservation Reserve",
-    "developmentType": null,
-    "status": "available",
-    "link": "node-details.html",
-    "price": 2648390
-  },
-  {
-    "id": "node_1_261",
-    "lot": "PLOT NO. 261",
-    "size": "55583m²",
-    "landUse": "Private Conservation Reserve",
-    "developmentType": null,
-    "status": "available",
-    "link": "node-details.html",
-    "price": 338407940
-  },
+  
+  
+ 
+  
   
 ];
 
-// your original data:
-
-
-// add id and sort by lot ascending
-// const node_1_data_with_ids = node_1_data
-//   .map((lot) => ({
-//     // id is based on lot when it exists, otherwise null
-//     id: typeof lot.lot === "number" ? `node_1_${lot.lot}` : null,
-//     ...lot,
-//   }))
-//   .sort((a, b) => {
-//     const aNum = typeof a.lot === "number" ? a.lot : Number.POSITIVE_INFINITY;
-//     const bNum = typeof b.lot === "number" ? b.lot : Number.POSITIVE_INFINITY;
-//     return aNum - bNum;
-//   });
-
-// console.log(node_1_data_with_ids);
-
-
-// add the animation class to all matching id 
-node1_id.forEach(add_animation_class => {
-  const node_1_id = document.querySelector(`#${add_animation_class}`);
-  node_1_id.classList.add('anim-path');
-});
-
-// // add every lot tex lot number and return the full modify lot data
-// let l = []
-// node_1_data.forEach(lot => {
-// const o = {
-//   ...lot,
-//   lot: `PLOT NO. ${lot.lot}`,
-// };
-// l.push(o);
-// }
-// )
-// console.log(l)
-
-
-
-
-
-// // ====== TOOLTIP RENDER ======
-function renderTooltipContent(mapD) {
-  let statusStyle = "font-weight: bold;";
-  // if (mapD.status && mapD.status.toLowerCase() === "available") {
-  //     statusStyle = "color: #d3b683; font-weight: bold;";
-  // } else if (mapD.status && mapD.status.toLowerCase() === "sold") {
-  //     statusStyle = "color: red; font-weight: bold;";
-  // }
-
-
-  return `
-   <div class="rcost-plot-tooltip">
-    <div class="ploat-tooltip-container">
-          <div class="plot-label"> ${mapD.lot}</div>
-      <div class="development_type">${mapD.developmentType}</div>
-      <div class="plot-size">Plot Size: ${mapD.size}</div>
-    </div>
-      <button class="plot-btn">CLICK TO VIEW</button>
-    </div>
-  `;
-}
-
-// function renderTooltipContent(mapD) {
-//     let statusStyle = "font-weight: bold;";
-//     if (mapD.status && mapD.status.toLowerCase() === "available") {
-//         statusStyle = "color: #d3b683; font-weight: bold;";
-//     } else if (mapD.status && mapD.status.toLowerCase() === "sold") {
-//         statusStyle = "color: red; font-weight: bold;";
-//     }
-
-//     return `
-//     <div  class="all_node_tooltip_style">
-//       <p><strong> ${mapD.node_number ?? ""} </strong></p>
-//       <p><strong>Development type:</strong> ${mapD.use ?? ""}</p>
-//       <p><strong>Sites:</strong> ${String(mapD.lot || "").replace(
-//         /_/g,
-//         ""
-//     )} Sites</p>
-//       <p><strong>Size:</strong> ${mapD.size ?? ""}</p>
-//       <p><strong></strong> <span style="font-weight:bold;">${mapD.description ?? ""
-//         }</span></p>
-
-//     </div>
-//   `;
-// }
-console.log(isMobile_devices)
-
-
-if (isMobile_devices) {
-
-  mobileZoom({
-    ikrsvg_id: 'ikr_svg',
-    stage_id: 'stage',
-    mapId: node1_id,
-    mapData: node_1_data,
-    ploat_btn_class: "plot-btn all-nodes-btn",
-    data_proprty_to_create_button:'lot',
-    animation_class: 'node_lot_highlight',
-
-  });
-
-
-} 
-
-else {
-
-  init_interactive_map({
-    mapData: node_1_data,
-    mapId: node1_id,
-    tooltipElementId: "ikr_toltipMove",
-    svgElementId: "ikr_svg",
-    renderTooltipContent: renderTooltipContent,
-    tooltipLeft: 20,
-    tooltipTop: 10,
-
-    // Hover IN: Animate stroke + change fill
-    onLotHoverIn: (el, mapD, ev) => {
-      if (!el.classList.contains("anim-path")) return;
-
-      // Store original fill if not already
-      if (!el.dataset.originalFill) {
-        const computedFill = window.getComputedStyle(el).fill;
-        el.dataset.originalFill = computedFill !== 'none' ? computedFill : '#000000';
-      }
-
-      // Setup stroke length
-      if (typeof el.getTotalLength === "function") {
-        const len = el.getTotalLength();
-        el.style.setProperty("--len", len);
-        el.style.strokeDasharray = len;
-      }
-
-      // Apply hover styles
-      el.style.fill = "red";
-      el.style.fillOpacity = ".7";
-
-      // Trigger stroke animation
-      el.classList.remove("draw", "highlight");
-      void el.offsetWidth; // Force reflow
-      el.classList.add("highlight", "draw");
-    },
-
-    // Hover OUT: Restore original fill (do NOT hide)
-    onLotHoverOut: (el, mapD, ev) => {
-      if (!el.classList.contains("anim-path")) return;
-
-      // Restore original fill color
-      el.style.fill = el.dataset.originalFill || "#000000";
-      el.style.fillOpacity = "1"; // Keep visible
-
-      // Remove animation
-      el.classList.remove("draw", "highlight");
-    }
-  });
-
-  ikrZoom({
-    ikrsvg: ikr_svg, tooltipElementId: 'ikr_toltipMove', mapData: node_1_data,
-    mapId: node1_id, // Hover IN: Animate stroke + change fill
-    onLotHoverIn: (el, mapD, ev) => {
-      if (!el.classList.contains("anim-path")) return;
-
-      // Store original fill if not already
-      if (!el.dataset.originalFill) {
-        const computedFill = window.getComputedStyle(el).fill;
-        el.dataset.originalFill = computedFill !== 'none' ? computedFill : '#000000';
-      }
-
-      // Setup stroke length
-      if (typeof el.getTotalLength === "function") {
-        const len = el.getTotalLength();
-        el.style.setProperty("--len", len);
-        el.style.strokeDasharray = len;
-      }
-
-      // Apply hover styles
-      el.style.fill = "red";
-      el.style.fillOpacity = ".7";
-
-      // Trigger stroke animation
-      el.classList.remove("draw", "highlight");
-      void el.offsetWidth; // Force reflow
-      el.classList.add("highlight", "draw");
-    },
-
-    // Hover OUT: Restore original fill (do NOT hide)
-    onLotHoverOut: (el, mapD, ev) => {
-      if (!el.classList.contains("anim-path")) return;
-
-      // Restore original fill color
-      el.style.fill = el.dataset.originalFill || "#000000";
-      el.style.fillOpacity = "1"; // Keep visible
-
-      // Remove animation
-      el.classList.remove("draw", "highlight");
-    },
-    max_zoom:7
-  });
-}
-
+const node1_id = [
+  "node_1_154",
+  "node_1_153",
+  "node_1_109",
+  "node_1_108",
+  "node_1_107",
+  "node_1_105",
+  "node_1_103",
+  "node_1_123",
+  "node_1_121",
+  "node_1_119",
+  "node_1_116",
+  "node_1_115",
+  "node_1_114",
+  "node_1_90",
+  "node_1_180",
+  "node_1_80",
+  "node_1_60",
+  "node_1_61",
+  "node_1_62",
+  "node_1_63",
+  "node_1_58",
+  "node_1_56",
+  "node_1_57",
+  "node_1_53",
+  "node_1_52",
+  "node_1_51",
+  "node_1_50",
+  "node_1_49",
+  "node_1_54",
+  "node_1_76",
+  "node_1_55",
+  "node_1_78",
+  "node_1_79",
+  "node_1_32",
+  "node_1_46",
+  "node_1_47",
+  "node_1_48",
+  "node_1_38",
+  "node_1_39",
+  "node_1_45",
+  "node_1_44",
+  "node_1_31",
+  "node_1_30",
+  "node_1_28",
+  "node_1_27",
+  "node_1_26",
+  "node_1_25",
+  "node_1_24",
+  "node_1_10",
+  "node_1_12",
+  "node_1_13",
+  "node_1_15380",
+  "node_1_52530",
+  "node_1_204",
+  "node_1_126",
+  "node_1_240717",
+  "node_1_227",
+  "node_1_229",
+  "node_1_151",
+  "node_1_239",
+  "node_1_68",
+  "node_1_4",
+  "node_1_5",
+  "node_1_160",
+  "node_1_16",
+  "node_1_15",
+  "node_1_195",
+  "node_1_67",
+  "node_1_189",
+  "node_1_181",
+  "node_1_190",
+  "node_1_182",
+  "node_1_125",
+  "node_1_225",
+  "node_1_137",
+  "node_1_124",
+  "node_1_122",
+  "node_1_120",
+  "node_1_119-2",
+  "node_1_117",
+  "node_1_228",
+  "node_1_186",
+  "node_1_33",
+  "node_1_34",
+  "node_1_35",
+  "node_1_98",
+  "node_1_97",
+  "node_1_96",
+  "node_1_95",
+  "node_1_92",
+  "node_1_91",
+  "node_1_100",
+  "node_1_152",
+  "node_1_156",
+  "node_1_163",
+  "node_1_183",
+  "node_1_187",
+  "node_1_59",
+  "node_1_3",
+  "node_1_8",
+  "node_1_9",
+  "node_1_110",
+  "node_1_217",
+  "node_1_255",
+  "node_1_185",
+  "node_1_184",
+  "node_1_11",
+  "node_1_1",
+  "node_1_149",
+  "node_1_112",
+  "node_1_111",
+  "node_1_113",
+  "node_1_139",
+  "node_1_148",
+  "node_1_101",
+  "node_1_104",
+  "node_1_102",
+  "node_1_106",
+  "node_1_136",
+  "node_1_138",
+  "node_1_145",
+  "node_1_133",
+  "node_1_159",
+  "node_1_162",
+  "node_1_1585_m",
+  "node_1_249",
+  "node_1_1939_m",
+  "node_1_29",
+  "node_1_188",
+  "node_1_6",
+  "node_1_7",
+  "node_1_23",
+  "node_1_22",
+  "node_1_19",
+  "node_1_17",
+  "node_1_14",
+  "node_1_81",
+  "node_1_43",
+  "node_1_42",
+  "node_1_75",
+  "node_1_74",
+  "node_1_73",
+  "node_1_72",
+  "node_1_71",
+  "node_1_70",
+  "node_1_69",
+  "node_1_77",
+  "node_1_21",
+  "node_1_20",
+  "node_1_18",
+  "node_1_64",
+  "node_1_65",
+  "node_1_66",
+  "node_1_41",
+  "node_1_40",
+  "node_1_36",
+  "node_1_37",
+  "node_1_93",
+  "node_1_94",
+  "node_1_155",
+  "node_1_150",
+  "node_1_161",
+  "node_1_158",
+  "node_1_157",
+  "node_1_150-2",
+  "node_1_147",
+  "node_1_142",
+  "node_1_143",
+  "node_1_166",
+  "node_1_236",
+  "node_1_235",
+  "node_1_234",
+  "node_1_233",
+  "node_1_232",
+  "node_1_231",
+  "node_1_246",
+  "node_1_247",
+  "node_1_248",
+  "node_1_251",
+  "node_1_205",
+  "node_1_206",
+  "node_1_207",
+  "node_1_208",
+  "node_1_209",
+  "node_1_210",
+  "node_1_211",
+  "node_1_212",
+  "node_1_213",
+  "node_1_252",
+  "node_1_253",
+  "node_1_214",
+  "node_1_215",
+  "node_1_216",
+  "node_1_218",
+  "node_1_219",
+  "node_1_220",
+  "node_1_221",
+  "node_1_222",
+  "node_1_223",
+  "node_1_224",
+  "node_1_134",
+  "node_1_135",
+  "node_1_140",
+  "node_1_141",
+  "node_1_144",
+  "node_1_146",
+  "node_1_132",
+  "node_1_131",
+  "node_1_130",
+  "node_1_129",
+  "node_1_226_M",
+  "node_1_129-2",
+  "node_1_238",
+  "node_1_243",
+  "node_1_244",
+  "node_1_245",
+  "node_1_228-2",
+  "node_1_227-2",
+  "node_1_199",
+  "node_1_200",
+  "node_1_202",
+  "node_1_198",
+  "node_1_203",
+  "node_1_201",
+  "node_1_240",
+  "node_1_241",
+  "node_1_242",
+  "node_1_164"
+]

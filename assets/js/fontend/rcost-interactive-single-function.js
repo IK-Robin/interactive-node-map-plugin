@@ -1,5 +1,3 @@
-
- 
  function init_interactive_map({
     mapData,
     mapId,
@@ -9,7 +7,8 @@
     tooltipLeft = 0,
     tooltipTop = 0,
     onLotHoverIn,
-    onLotHoverOut
+    onLotHoverOut,
+      isDraggingFn = () => false
   }) {
     const ikr_svg = document.getElementById(svgElementId);
     // console.log(ikr_svg)
@@ -149,17 +148,35 @@ function restoreOriginalPosition(el) {
     }
 
 function rcostClick_func(ev, ct, mapD) {
-  if (!mapD || !mapD.id) return;
+  // if (!mapD || !mapD.id || !mapD.link) return;
+ if (!mapD || !mapD.id || isDraggingFn()) return;
 
-  // sanitize input
+
+  // console.log("Clicked lot:", mapD.id, "->", mapD.link);
+
+  // --- sanitize input, prevents injection ---
   const unit = encodeURIComponent(mapD.id.trim());
 
-  const basePath = ikrnmap_get_frontend_variable.home_url;
+  const pathname = window.location.pathname || '/';
+  console.log('pathname',pathname)
+  const basePath = pathname.replace(/\/[^/]*$/, '/');
+  console.log('base path', basePath)
+  let baseURL = window.location.origin;
 
-  // build final URL (string is fine)
-  const finalURL = `${basePath}?unit=${unit}`;
-console.log(finalURL)
-  function navigateFromFullscreen(url) {
+      let finalURL = baseURL;
+      
+      if (basePath === "/all-nodes/"){
+         finalURL = new URL(mapD.link, baseURL);
+      } else{ 
+            finalURL = new URL(mapD.link, baseURL + basePath);
+      }
+      finalURL.searchParams.set("unit", unit);
+     
+  
+      // window.location.href = finalURL.href;
+
+
+        function navigateFromFullscreen(url) {
     if (document.fullscreenElement) {
       document.exitFullscreen().then(() => {
         requestAnimationFrame(() => {
@@ -177,7 +194,6 @@ console.log(finalURL)
 
   navigateFromFullscreen(finalURL);
 }
-
 
 
 
@@ -237,6 +253,7 @@ console.log(finalURL)
         });
 
         el.addEventListener("mousemove", (ev) => {
+          console.log(isDraggingFn());
           handleShow(ev, el, mapD);
         });
 
