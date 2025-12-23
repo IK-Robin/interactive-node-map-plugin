@@ -179,7 +179,7 @@ function restoreOriginalPosition(el) {
             if (typeof onLotHoverIn === "function") {
               onLotHoverIn(el, mapD, ev);
             }
-            handleShow(ev, el, mapD);
+            // handleShow(ev, el, mapD);
             // rcostClick_func(ev, el, mapD);
           },
           { passive: false }
