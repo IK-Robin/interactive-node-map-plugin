@@ -59,6 +59,13 @@ document.getElementById('fullscreen_btn').onclick = zoom.toggleFullscreen;
 
 // add the interactivity on the svg plots
 
+initMapDataFilter({
+  mapData: node_1_data,
+  zoomInstance: zoom,
+  finalURL: finalURL,
+  animation_class: 'node_lot_highlight',
+});
+
 if (isMobile_devices) {
 
 

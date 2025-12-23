@@ -1,6 +1,6 @@
-function initMapDataFilter({ mapData, zoomInstance }) {
+function initMapDataFilter({ mapData, zoomInstance,finalURL,animation_class='highlight' }) {
     console.log('update successfull');
-
+const previous_selected_element  = null;
     /* ================= DOM ================= */
     const blockSelect = document.getElementById('blockSelect');
     const priceSelect = document.getElementById('priceSelect');
@@ -133,63 +133,138 @@ function initMapDataFilter({ mapData, zoomInstance }) {
         return true;
     }
 
-    /* ================= NODE SELECT ================= */
-  function createNodeSelect(list) {
-    const c = document.getElementById(NODE_SELECT_CONTAINER_ID);
-    if (!c) return;
-    c.innerHTML = '';
+    /* ================= MAIN CLICK HANDLER - MOVED INSIDE ================= */
+    function handleNodeClick(node) {
+      const select_svg_element = document.getElementById(node.id);
+      if (!select_svg_element) return;
 
-    const s = document.createElement('select');
-    s.className = 'node-select';
-    s.appendChild(new Option(list.length ? 'Select Plot' : 'No matching plots', ''));
-
-    list.forEach(l => s.appendChild(new Option(l.lot || l.id, l.id)));
-
-    let previously_selected_element = null;
-
-    s.addEventListener('change', e => {
-        const el = document.getElementById(e.target.value);
-        if (!el) return;
-
-        // ✅ REMOVE highlight from previous element FIRST
-        if (previously_selected_element) {
-            previously_selected_element.classList.remove('highlight', 'selected-node');
+      // Restore previous
+      if (previous_selected_element && previous_selected_element.parentNode) {
+        const savedNextSibling = previous_selected_element.originalNextSibling;
+        if (savedNextSibling && savedNextSibling.parentNode) {
+          previous_selected_element.parentNode.insertBefore(previous_selected_element, savedNextSibling);
+        } else {
+          previous_selected_element.parentNode.appendChild(previous_selected_element);
         }
+        previous_selected_element.classList.remove("selected-node");
+        clearStrokeHover(previous_selected_element, animation_class);
+        previous_selected_element.removeEventListener("touchstart", redirectHandler);
+      }
 
-        // ✅ ADD highlight to current element
-        el.classList.add('highlight', 'selected-node');
+      // Bring new to front
+      select_svg_element.originalNextSibling = select_svg_element.nextSibling;
+      select_svg_element.parentNode.appendChild(select_svg_element);
+      select_svg_element.classList.add("selected-node");
+      select_svg_element.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+      applyStrokeHover(select_svg_element, animation_class);
+      console.log(select_svg_element.id)
+      zoomInstance.flyToId(select_svg_element.id);
+      select_svg_element.dataset.nodeLink = node.link;
+      select_svg_element.addEventListener("touchstart", redirectHandler);
 
-        // ✅ UPDATE reference AFTER removal
-        previously_selected_element = el;
+      // Button active state
+      document.querySelectorAll(".plot-btn").forEach(btn => btn.classList.remove("active-btn"));
+      const currentBtn = document.querySelector(`[data-node-id="${node.id}"]`);
+      if (currentBtn) currentBtn.classList.add("active-btn");
 
-        if (IS_MOBILE_DEVICE) {
-            zoomInstance.flyToId(e.target.value);
-        }
-    });
+      // ← Sync select dropdown
+      const selectEl = document.querySelector(".node-select");
+      if (selectEl) selectEl.value = node.id;
 
-    c.appendChild(s);
+      previous_selected_element = select_svg_element;
+    }
+
+    /* ================= REDIRECT HANDLER - MOVED INSIDE ================= */
+    function redirectHandler(e) {
+  if (zoomInstance.isDragging()) return;
+
+  const target_id = e.currentTarget.id;
+  const item = mapData.find(i => i.id === target_id);
+  if (!item?.link) return;
+
+  const unit = encodeURIComponent(item.id.trim());
+
+let final_url = finalURL;
+
+final_url += (finalURL.includes("?") ? "&" : "?") + "unit=" + unit;
+  
+        function navigateFromFullscreen(url) {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().then(() => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            window.location.href = url;
+            console.log(url)
+          }, 300);
+        });
+      });
+    } else {
+      window.location.href = url;
+    
+    }
+  }
+
+  navigateFromFullscreen( final_url);
+
+  // window.location.href = url.href;
 }
 
+    /* ================= NODE SELECT ================= */
+    function createNodeSelect(filteredList) {
+        const container = document.getElementById(NODE_SELECT_CONTAINER_ID);
+        if (!container) return;
+        container.innerHTML = '';
+
+        const select = document.createElement('select');
+        select.className = 'node-select';
+        select.appendChild(new Option(filteredList.length ? 'Select Plot' : 'No matching plots', ''));
+
+        filteredList.forEach(node => {
+            const optionText = node.lot || node.id;
+            select.appendChild(new Option(optionText, node.id));
+        });
+
+        select.addEventListener("change", (e) => {
+            if (!e.target.value) return;
+
+            const selectedNode = filteredList.find(n => n.id === e.target.value);
+
+            if (selectedNode) {
+                handleNodeClick(selectedNode);        // ← Now accessible!
+                zoomInstance.flyToId(selectedNode.id); // ← Extra flyTo (optional)
+            }
+        });
+
+        container.appendChild(select);
+    }
 
     /* ================= APPLY FILTERS ================= */
-   function applyFilters() {
-  is_filter_active = Array.from(selects).some(s => s.value);
+    function applyFilters() {
+        is_filter_active = Array.from(selects).some(s => s.value);
 
-  node_1_data.forEach(node => {
-    const el = document.getElementById(node.id);
-    if (!el) return;
+        // First: restore all nodes to original state
+        mapData.forEach(node => {
+            const el = document.getElementById(node.id);
+            if (el) restore(el); // ← Used restore() here (matches your code)
+        });
 
-    // reset to base first
-    restoreBaseState(el);
+        // Then apply visual filter (blue fill for matching)
+        const filteredNodes = mapData.filter(matchesFilters);
 
-    if (is_filter_active && matchesFilters(node)) {
-      el.classList.add("filtered");
-      el.style.fill = "#023e8a";
-      el.style.fillOpacity = "1";
+        filteredNodes.forEach(node => {
+            const el = document.getElementById(node.id);
+            if (!el) return;
+            el.classList.add("filtered");
+            el.style.fill = "#023e8a";
+            el.style.fillOpacity = "1";
+        });
+
+        // Update the node dropdown with only filtered results
+        createNodeSelect(filteredNodes);
+
+        // Optional: update legend
+        generateLegend();
     }
-  });
-}
-
 
     /* ================= ACTIVE STATES ================= */
     function updateActiveStates() {
@@ -208,8 +283,7 @@ function initMapDataFilter({ mapData, zoomInstance }) {
         legend.innerHTML = '';
         const used = new Set();
 
-        mapData.forEach(lot => {
-            if (!matchesFilters(lot)) return;
+        mapData.filter(matchesFilters).forEach(lot => {
             const color = getColorForCategory(lot);
             if (used.has(color)) return;
             used.add(color);
@@ -231,8 +305,8 @@ function initMapDataFilter({ mapData, zoomInstance }) {
             updateActiveStates();
             applyFilters();
             zoomInstance.reset();
-             is_filter_active = true;
-        console.log('is_filter_active', is_filter_active);
+            is_filter_active = true;
+            console.log('is_filter_active', is_filter_active);
         })
     );
 
@@ -241,10 +315,9 @@ function initMapDataFilter({ mapData, zoomInstance }) {
         selects.forEach(s => (s.value = ''));
         updateActiveStates();
         window.resetZoom?.();
-        applyFilters();
+        applyFilters(); // will recreate dropdown with all nodes
         is_filter_active = false;
         console.log('is_filter_active', is_filter_active);
-        createNodeSelect(mapData);
     });
 
     mobileToggle?.addEventListener('click', () => {
@@ -266,7 +339,5 @@ function initMapDataFilter({ mapData, zoomInstance }) {
     populatePriceDropdown();
     populateStatusDropdown();
     updateActiveStates();
-    createNodeSelect(mapData);
-    // applyFilters();
+    createNodeSelect(mapData); // initial full list
 }
-
