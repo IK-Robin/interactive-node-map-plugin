@@ -216,6 +216,8 @@ lot_select_message.innerText = `CHOOSE A ${data_proprty_to_create_button.toUpper
 
       data.forEach((node) => {
         const lotNumber = node[data_proprty_to_create_button];
+        console.log(lotNumber)
+        // console.log(lotNumber)
         const option = document.createElement("option");
         option.value = node.id;
         option.textContent = lotNumber;
@@ -232,77 +234,75 @@ lot_select_message.innerText = `CHOOSE A ${data_proprty_to_create_button.toUpper
     }
 
     // Main click handler
-    function handleNodeClick(node) {
-      const select_svg_element = document.getElementById(node.id);
-      if (!select_svg_element) return;
+ function handleNodeClick(node) {
+  const el = document.getElementById(node.id);
+  if (!el) return;
 
-      // Restore previous
-      if (previous_selected_element && previous_selected_element.parentNode) {
-        const savedNextSibling = previous_selected_element.originalNextSibling;
-        if (savedNextSibling && savedNextSibling.parentNode) {
-          previous_selected_element.parentNode.insertBefore(previous_selected_element, savedNextSibling);
-        } else {
-          previous_selected_element.parentNode.appendChild(previous_selected_element);
-        }
-        previous_selected_element.classList.remove("selected-node");
-        clearStrokeHover(previous_selected_element, animation_class);
-        previous_selected_element.removeEventListener("touchstart", redirectHandler);
-      }
+  // Restore previous
+  if (previous_selected_element && previous_selected_element.parentNode) {
+    const savedNextSibling = previous_selected_element.originalNextSibling;
 
-      // Bring new to front
-      select_svg_element.originalNextSibling = select_svg_element.nextSibling;
-      select_svg_element.parentNode.appendChild(select_svg_element);
-      select_svg_element.classList.add("selected-node");
-      select_svg_element.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-      applyStrokeHover(select_svg_element, animation_class);
-    //   flyToShape(select_svg_element);
-    console.log(select_svg_element.id)
-      zoomInstance.flyToId(select_svg_element.id);
-      select_svg_element.dataset.nodeLink = node.link;
-      select_svg_element.addEventListener("touchstart", redirectHandler);
-
-      // Button active state
-      document.querySelectorAll(".plot-btn").forEach(btn => btn.classList.remove("active-btn"));
-      const currentBtn = document.querySelector(`[data-node-id="${node.id}"]`);
-      if (currentBtn) currentBtn.classList.add("active-btn");
-
-      // ← Sync select dropdown
-      const selectEl = document.querySelector(".node-select");
-      if (selectEl) selectEl.value = node.id;
-
-      previous_selected_element = select_svg_element;
+    if (savedNextSibling && savedNextSibling.parentNode) {
+      previous_selected_element.parentNode.insertBefore(
+        previous_selected_element,
+        savedNextSibling
+      );
+    } else {
+      previous_selected_element.parentNode.appendChild(previous_selected_element);
     }
+
+    previous_selected_element.classList.remove("selected-node");
+    clearStrokeHover(previous_selected_element, animation_class);
+    previous_selected_element.removeEventListener("pointerup", redirectHandler);
+  }
+
+  // Bring current to front
+  el.originalNextSibling = el.nextSibling;
+  el.parentNode.appendChild(el);
+
+  el.classList.add("selected-node");
+  el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+  applyStrokeHover(el, animation_class);
+
+  zoomInstance.flyToId(el.id);
+
+  el.dataset.nodeLink = node.link;
+
+  // ✅ SAFE redirect trigger
+  el.addEventListener("pointerup", redirectHandler);
+
+  // Button active state
+  document.querySelectorAll(".plot-btn").forEach(btn =>
+    btn.classList.remove("active-btn")
+  );
+
+  const currentBtn = document.querySelector(`[data-node-id="${node.id}"]`);
+  if (currentBtn) currentBtn.classList.add("active-btn");
+
+  // Sync dropdown
+  const selectEl = document.querySelector(".node-select");
+  if (selectEl) selectEl.value = node.id;
+
+  previous_selected_element = el;
+}
+
 
  // Redirect on touch
 function redirectHandler(e) {
-  const target_id = e.currentTarget.id;
+  if (zoomInstance.isDragging()) return;
 
+  const target_id = e.currentTarget.id;
   const item = mapData.find(i => i.id === target_id);
   if (!item?.link) return;
 
-  // --- sanitize ID to avoid injection ---
   const unit = encodeURIComponent(item.id.trim());
+  const baseURL = window.location.origin;
+  const url = new URL(item.link, baseURL);
+  url.searchParams.set("unit", unit);
 
-  // Current path (ex: "/Coastal-interactive-map/index.html")
-  const pathname = window.location.pathname || "/";
-
-  // Remove filename at end
-  const basePath = pathname.replace(/\/[^/]*$/, "/");
-
-  let baseURL = window.location.origin;
-
-      let finalURL = baseURL;
-      
-      if (basePath === "/all-nodes/"){
-         finalURL = new URL(item.link, baseURL);
-      } else{ 
-            finalURL = new URL(item.link, baseURL + basePath);
-      }
-      finalURL.searchParams.set("unit", unit);
-     
-  
-      window.location.href = finalURL.href;
+  window.location.href = url.href;
 }
+
 
 
  createNodeSelect(mapData, "buttonsContainer", "node-select");

@@ -114,7 +114,7 @@ function ikrwmap_add_frontend_script()
         wp_enqueue_script(
             'rcost-svg-component',
             plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-component.js',
-            array(),
+            [],
             IKRNMAP_VERSION,
             true
         );
@@ -127,6 +127,7 @@ function ikrwmap_add_frontend_script()
                 'featchdata' => 'ikrwmap_retrieveData_from_db',
                 'ajax_url'   => admin_url('admin-ajax.php'),
                 'home_url'   => home_url('/') . 'node-details',
+                'all_nodes_class'   =>  'highlight',
             ]
         );
     //       wp_enqueue_script(
@@ -153,7 +154,14 @@ function ikrwmap_add_frontend_script()
 
       wp_enqueue_script(
         'rcost-svg-map-script',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-main-svg-map.js',
+        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-zoom-map.js',
+        [],
+        IKRNMAP_VERSION,
+        true
+    );
+      wp_enqueue_script(
+        'rcost-all-node-main',
+        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-all-node-main.js',
         [],
         IKRNMAP_VERSION,
         true
