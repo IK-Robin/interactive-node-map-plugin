@@ -300,7 +300,26 @@ function redirectHandler(e) {
   const url = new URL(item.link, baseURL);
   url.searchParams.set("unit", unit);
 
-  window.location.href = url.href;
+  
+        function navigateFromFullscreen(url) {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().then(() => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            window.location.href = url;
+            console.log(url)
+          }, 300);
+        });
+      });
+    } else {
+      window.location.href = url;
+    
+    }
+  }
+
+  navigateFromFullscreen( url.href);
+
+  // window.location.href = url.href;
 }
 
 
