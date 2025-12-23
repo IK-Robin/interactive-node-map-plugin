@@ -288,7 +288,7 @@ lot_select_message.innerText = `CHOOSE A ${data_proprty_to_create_button.toUpper
 }
 
 
- // Redirect on touch
+ // Redirect on touch or click
 function redirectHandler(e) {
   if (zoomInstance.isDragging()) return;
 
