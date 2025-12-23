@@ -184,7 +184,8 @@ function ismobile_interacitivty({
     data_proprty_to_create_button = "lot",
     animation_class = 'highlight',
     mapData,
-    zoomInstance
+    zoomInstance,
+    finalURL
 }){
 
     
@@ -296,10 +297,10 @@ function redirectHandler(e) {
   if (!item?.link) return;
 
   const unit = encodeURIComponent(item.id.trim());
-  const baseURL = window.location.origin;
-  const url = new URL(item.link, baseURL);
-  url.searchParams.set("unit", unit);
 
+let final_url = finalURL;
+
+final_url += (finalURL.includes("?") ? "&" : "?") + "unit=" + unit;
   
         function navigateFromFullscreen(url) {
     if (document.fullscreenElement) {
@@ -317,7 +318,7 @@ function redirectHandler(e) {
     }
   }
 
-  navigateFromFullscreen( url.href);
+  navigateFromFullscreen( final_url);
 
   // window.location.href = url.href;
 }

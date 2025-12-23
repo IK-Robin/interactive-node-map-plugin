@@ -3,7 +3,8 @@
 
 const svg = document.getElementById('inlineSvg');
 const stage = document.getElementById('stage');
-// const plotSelect = document.getElementById('plotSelect');
+// const plotSelect = document.getElementById('plotSelect');d
+let finalURL = ikrnmap_get_frontend_variable.home_url;
 
 const zoom = createSvgZoom({
   svg,
@@ -36,7 +37,7 @@ node_1_data.forEach(n => {
   // o.value = n.id;
   // o.textContent = n.lot || n.id;
   // plotSelect.appendChild(o);
-    const el = document.getElementById(n.id);
+  const el = document.getElementById(n.id);
   if (el) storeBaseState(el);
 });
 
@@ -57,6 +58,7 @@ document.getElementById('fullscreen_btn').onclick = zoom.toggleFullscreen;
 // });
 
 // add the interactivity on the svg plots
+
 if (isMobile_devices) {
 
 
@@ -64,7 +66,8 @@ if (isMobile_devices) {
     data_proprty_to_create_button: "node",
     animation_class: 'highlight',
     mapData: node_1_data,
-    zoomInstance: zoom
+    zoomInstance: zoom,
+    finalURL: finalURL,
   });
 
 
@@ -73,123 +76,85 @@ if (isMobile_devices) {
     mapData: node_1_data, mapId: node1_id, tooltipElementId: "ikr_toltipMove", svgElementId: "ikr_svg", renderTooltipContent: renderTooltipContent_all_nodes, tooltipLeft: 20, tooltipTop: 10,
     // Hover IN: Animate stroke + change fill
     onLotHoverIn: (el) => {
-  if (!el.classList.contains("anim-path")) return;
+      if (!el.classList.contains("anim-path")) return;
 
-  if (typeof el.getTotalLength === "function") {
-    const len = el.getTotalLength();
-    el.style.setProperty("--len", len);
-    el.style.strokeDasharray = len;
-  }
+      if (typeof el.getTotalLength === "function") {
+        const len = el.getTotalLength();
+        el.style.setProperty("--len", len);
+        el.style.strokeDasharray = len;
+      }
 
-//   el.style.fill = "red";
-  el.style.fillOpacity = "0.5";
+      //   el.style.fill = "red";
+      el.style.fillOpacity = "0.5";
 
-  el.classList.remove("draw", "highlight");
-  void el.offsetWidth;
-  el.classList.add("highlight", "draw");
-}
-,
+      el.classList.remove("draw", "highlight");
+      void el.offsetWidth;
+      el.classList.add("highlight", "draw");
+    }
+    ,
     // Hover OUT: Restore original fill (do NOT hide)
 
     onLotHoverOut: (el) => {
-  if (!el.classList.contains("anim-path")) return;
+      if (!el.classList.contains("anim-path")) return;
 
-  el.classList.remove("draw", "highlight");
- el.style.fill = "'";
-    el.style.fillOpacity = "0";
-  if (is_filter_active && el.classList.contains("filtered")) {
-    // restore CURRENT filter color
-    el.style.fill = "#f94144";
-    el.style.fillOpacity = "1";
-  } else {
-    // restore BASE
-    // restoreBaseState(el);
-  }
-}
-, isDraggingFn: zoom.isDragging
+      el.classList.remove("draw", "highlight");
+      el.style.fill = "'";
+      el.style.fillOpacity = "0";
+      if (is_filter_active && el.classList.contains("filtered")) {
+        // restore CURRENT filter color
+        el.style.fill = "#f94144";
+        el.style.fillOpacity = "1";
+      } else {
+        // restore BASE
+        // restoreBaseState(el);
+      }
+    }
+    , 
+    isDraggingFn: zoom.isDragging,
+    onClickFn: rcostClick_func
   });
 
-//   init_interactive_map({
-//   mapData: node_1_data,
-//   mapId: node1_id,
-//   tooltipElementId: "ikr_toltipMove",
-//   svgElementId: "ikr_svg",
-//   renderTooltipContent: renderTooltipContentNode_lavel,
-//   tooltipLeft: 20,
-//   tooltipTop: 10,
-
-//   // =============================
-//   // HOVER IN
-//   // =============================
-//   onLotHoverIn: (el, mapD, ev) => {
-//     if (!el || !el.classList.contains("anim-path")) return;
-
-//     // Store original visual state ONCE
-//     storeOriginalState(el);
-
-//     // Stroke animation setup
-//     if (typeof el.getTotalLength === "function") {
-//       const len = el.getTotalLength();
-//       el.style.setProperty("--len", len);
-//       el.style.strokeDasharray = len;
-//     }
-
-//     // Apply hover styles
-//     el.style.fill = "red";
-//     el.style.fillOpacity = "0.7";
-
-//     // Restart animation cleanly
-//     el.classList.remove("draw", "highlight");
-//     void el.offsetWidth; // force reflow
-//     el.classList.add("highlight", "draw");
-//   },
-
-//   // =============================
-//   // HOVER OUT
-//   // =============================
-//   onLotHoverOut: (el, mapD, ev) => {
-//     if (!el || !el.classList.contains("anim-path")) return;
-
-//     // Restore EXACT previous state
-//     restoreOriginalState(el);
-//   },
-
-//   isDraggingFn: zoom.isDragging
-// });
 
 
 
 
 
-  // store the previously added fill color logic 
+}
 
 
 
-  function storeOriginalState(el) {
-    if (!el || el.dataset._origStored === "1") return;
+function rcostClick_func(ev, ct, mapD) {
+  // if (!mapD || !mapD.id || !mapD.link) return;
 
-    const cs = window.getComputedStyle(el);
+  if (!mapD || !mapD.id) return;
 
-    el.dataset._origFill = cs.fill;
-    el.dataset._origFillOpacity = cs.fillOpacity;
-    el.dataset._origStroke = cs.stroke;
-    el.dataset._origStrokeWidth = cs.strokeWidth;
+  
 
-    // Store class list exactly as-is
-    el.dataset._origClass = el.getAttribute("class") || "";
+  // --- sanitize input, prevents injection ---
+  const unit = encodeURIComponent(mapD.id.trim());
 
-    el.dataset._origStored = "1";
+
+  
+ finalURL += (finalURL.includes("?") ? "&" : "?") + "unit=" + unit;
+
+  // window.location.href = finalURL.href;
+
+
+  function navigateFromFullscreen(url) {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().then(() => {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            window.location.href = url;
+            console.log(url)
+          }, 300);
+        });
+      });
+    } else {
+      window.location.href = url;
+
+    }
   }
 
-  function restoreOriginalState(el) {
-    if (!el || el.dataset._origStored !== "1") return;
-
-    el.style.fill = el.dataset._origFill;
-    el.style.fillOpacity = el.dataset._origFillOpacity;
-    el.style.stroke = el.dataset._origStroke;
-    el.style.strokeWidth = el.dataset._origStrokeWidth;
-
-    // Restore original classes (removes hover-only classes safely)
-    el.setAttribute("class", el.dataset._origClass);
-  }
+  navigateFromFullscreen(finalURL);
 }

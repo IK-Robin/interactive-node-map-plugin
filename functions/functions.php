@@ -127,7 +127,7 @@ function ikrwmap_add_frontend_script()
                 'featchdata' => 'ikrwmap_retrieveData_from_db',
                 'ajax_url'   => admin_url('admin-ajax.php'),
                 'home_url'   => home_url('/') . 'node-details',
-                'all_nodes_class'   =>  'highlight',
+             
             ]
         );
     //       wp_enqueue_script(

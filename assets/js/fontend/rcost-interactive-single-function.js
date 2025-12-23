@@ -8,7 +8,8 @@
     tooltipTop = 0,
     onLotHoverIn,
     onLotHoverOut,
-      isDraggingFn = () => false
+      isDraggingFn = () => false,
+      onClickFn,
   }) {
     const ikr_svg = document.getElementById(svgElementId);
     // console.log(ikr_svg)
@@ -147,53 +148,6 @@ function restoreOriginalPosition(el) {
       // could call handleHide(ct) if you want
     }
 
-function rcostClick_func(ev, ct, mapD) {
-  // if (!mapD || !mapD.id || !mapD.link) return;
- if (!mapD || !mapD.id || isDraggingFn()) return;
-
-
-  // console.log("Clicked lot:", mapD.id, "->", mapD.link);
-
-  // --- sanitize input, prevents injection ---
-  const unit = encodeURIComponent(mapD.id.trim());
-
-  const pathname = window.location.pathname || '/';
-  console.log('pathname',pathname)
-  const basePath = pathname.replace(/\/[^/]*$/, '/');
-  console.log('base path', basePath)
-  let baseURL = window.location.origin;
-
-      let finalURL = baseURL;
-      
-      if (basePath === "/all-nodes/"){
-         finalURL = new URL(mapD.link, baseURL);
-      } else{ 
-            finalURL = new URL(mapD.link, baseURL + basePath);
-      }
-      finalURL.searchParams.set("unit", unit);
-     
-  
-      // window.location.href = finalURL.href;
-
-
-        function navigateFromFullscreen(url) {
-    if (document.fullscreenElement) {
-      document.exitFullscreen().then(() => {
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            window.location.href = url;
-            console.log(url)
-          }, 300);
-        });
-      });
-    } else {
-      window.location.href = url;
-    
-    }
-  }
-
-  navigateFromFullscreen(finalURL);
-}
 
 
 
@@ -266,7 +220,9 @@ function rcostClick_func(ev, ct, mapD) {
         });
 
         el.addEventListener("click", (ev) => {
-          rcostClick_func(ev, el, mapD);
+          // rcostClick_func(ev, el, mapD);
+          // if(isDraggingFn()) return;
+          onClickFn(ev, el, mapD);
         });
       }
     });
