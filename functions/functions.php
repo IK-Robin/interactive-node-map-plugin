@@ -101,13 +101,13 @@ function ikrwmap_add_frontend_script()
         );
 
         // it comee in future from database 
-           wp_enqueue_script(
-        'rcost-data-all-node',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-all-node-data.js',
-        [],
-        IKRNMAP_VERSION,
-        true
-    );
+        wp_enqueue_script(
+            'rcost-data-all-node',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-all-node-data.js',
+            [],
+            IKRNMAP_VERSION,
+            true
+        );
 
 
         // register/enqueue your JS here
@@ -127,77 +127,95 @@ function ikrwmap_add_frontend_script()
                 'featchdata' => 'ikrwmap_retrieveData_from_db',
                 'ajax_url'   => admin_url('admin-ajax.php'),
                 'home_url'   => home_url('/') . 'node-details',
-             
+
             ]
         );
-    //       wp_enqueue_script(
-    //     'rcost-svg-filter',
-    //     plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-filter.js',
-    //     [],
-    //     IKRNMAP_VERSION,
-    //     true
-    // );
+        //       wp_enqueue_script(
+        //     'rcost-svg-filter',
+        //     plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-filter.js',
+        //     [],
+        //     IKRNMAP_VERSION,
+        //     true
+        // );
 
 
 
 
 
-      
-           wp_enqueue_script(
-        'rcost-interactivity-functions',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-interactive-single-function.js',
-        [],
-        IKRNMAP_VERSION,
-        true
-    );
+
+        wp_enqueue_script(
+            'rcost-interactivity-functions',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-interactive-single-function.js',
+            [],
+            IKRNMAP_VERSION,
+            true
+        );
 
 
-      wp_enqueue_script(
-        'rcost-svg-map-script',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-zoom-map.js',
-        [],
-        IKRNMAP_VERSION,
-        true
-    );
-      wp_enqueue_script(
-        'rcost-all-node-main',
-        plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-all-node-main.js',
-        [],
-        IKRNMAP_VERSION,
-        true
-    );
-     
+        wp_enqueue_script(
+            'rcost-svg-map-script',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-zoom-map.js',
+            [],
+            IKRNMAP_VERSION,
+            true
+        );
+        wp_enqueue_script(
+            'rcost-all-node-main',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-all-node-main.js',
+            [],
+            IKRNMAP_VERSION,
+            true
+        );
     }
 
 
 
     // enqueue the js if the page is single and the page name is node-details 
     if (is_singular('page') && is_page('node-details')) {
+        // shortcode exists AND this is a single page
+        // add the css 
+        wp_enqueue_style(
+            'rcost-svg-map-style-detail-page',
+            plugin_dir_url(__FILE__) . '../assets/style/renishaw-style/rcost-fontend.css',
+            [],
+            IKRNMAP_VERSION
+            , 'all'
+        );
 
-
-
+        // it comee in future from database 
         wp_enqueue_script(
-            'ikrnmap-component',
-            plugin_dir_url(__FILE__) . '../assets/js/rcost-component.js',
-            array(),
+            'rcost-data-all-node-detail-page',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-node-1-data.js',
+            [],
+            IKRNMAP_VERSION,
+            true
+        );
+
+
+        // register/enqueue your JS here
+        wp_enqueue_script(
+            'rcost-svg-component-detail-page',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-component.js',
+            [],
             IKRNMAP_VERSION,
             true
         );
 
 
         wp_localize_script(
-            'ikrnmap-component',
+            'rcost-svg-component-detail-page',
             'ikrnmap_get_frontend_variable',
             [
                 'featchdata' => 'ikrwmap_retrieveData_from_db',
                 'ajax_url'   => admin_url('admin-ajax.php'),
-                'price_list_page'   => home_url('/') . 'price-list',
+                'home_url'   => home_url('/') . 'price-list',
+
             ]
         );
-        wp_enqueue_script(
-            'ikrnmap-interactive-single-function',
-            plugin_dir_url(__FILE__) . '../assets/js/rcost-interactive-single-function.js',
-            array(),
+              wp_enqueue_script(
+            'rcost-svg-filter-detail-page',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-filter.js',
+            [],
             IKRNMAP_VERSION,
             true
         );
@@ -206,40 +224,30 @@ function ikrwmap_add_frontend_script()
 
 
 
+
         wp_enqueue_script(
-            'ikrnmap-zoom',
-            plugin_dir_url(__FILE__) . '../assets/js/rcost-zoom.js',
-            array(),
+            'rcost-interactivity-functions-detail-page',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-interactive-single-function.js',
+            [],
+            IKRNMAP_VERSION,
+            true,
+            
+        );
+
+
+        wp_enqueue_script(
+            'rcost-svg-map-script-detail-page',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-zoom-map.js',
+            [],
             IKRNMAP_VERSION,
             true
         );
         wp_enqueue_script(
-            'node-details-interactivity',
-            plugin_dir_url(__FILE__) . '../assets/js/rcost-node-1-data.js',
-            array(),
+            'rcost-all-node-main-detail-page',
+            plugin_dir_url(__FILE__) . '../assets/js/fontend/rcost-node-detail-main.js',
+            [],
             IKRNMAP_VERSION,
             true
-        );
-
-
-        // add the filter js 
-        wp_enqueue_script(
-            'ikrnmap-interactive-filter',
-            plugin_dir_url(__FILE__) . '../assets/js/filter-top-menu.js',
-            array(),
-            IKRNMAP_VERSION,
-            true
-        );
-
-
-        //enqueue the style 
-        wp_enqueue_style(
-            'add-details-page-style',
-            plugin_dir_url(__FILE__) . '../assets/style/renishaw-style/rcost-fontend.css',
-            array(),
-            IKRNMAP_VERSION,
-            'all'
-
         );
     }
 
