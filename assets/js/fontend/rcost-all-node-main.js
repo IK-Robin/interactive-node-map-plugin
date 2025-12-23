@@ -125,6 +125,7 @@ if (isMobile_devices) {
 
 function rcostClick_func(ev, ct, mapD) {
   // if (!mapD || !mapD.id || !mapD.link) return;
+  if(zoom.isDragging()) return;
 
   if (!mapD || !mapD.id) return;
 
