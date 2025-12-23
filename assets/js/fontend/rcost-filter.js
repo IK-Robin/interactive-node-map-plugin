@@ -1,6 +1,6 @@
-function initMapDataFilter({ mapData, zoomInstance,finalURL,animation_class='highlight' }) {
+function initMapDataFilter({ mapData, zoomInstance, finalURL, animation_class = 'highlight' }) {
     console.log('update successfull');
-const previous_selected_element  = null;
+    let previous_selected_element = null;
     /* ================= DOM ================= */
     const blockSelect = document.getElementById('blockSelect');
     const priceSelect = document.getElementById('priceSelect');
@@ -135,79 +135,80 @@ const previous_selected_element  = null;
 
     /* ================= MAIN CLICK HANDLER - MOVED INSIDE ================= */
     function handleNodeClick(node) {
-      const select_svg_element = document.getElementById(node.id);
-      if (!select_svg_element) return;
+        const select_svg_element = document.getElementById(node.id);
+        if (!select_svg_element) return;
 
-      // Restore previous
-      if (previous_selected_element && previous_selected_element.parentNode) {
-        const savedNextSibling = previous_selected_element.originalNextSibling;
-        if (savedNextSibling && savedNextSibling.parentNode) {
-          previous_selected_element.parentNode.insertBefore(previous_selected_element, savedNextSibling);
-        } else {
-          previous_selected_element.parentNode.appendChild(previous_selected_element);
+        // Restore previous
+        if (previous_selected_element && previous_selected_element.parentNode) {
+            const savedNextSibling = previous_selected_element.originalNextSibling;
+            if (savedNextSibling && savedNextSibling.parentNode) {
+                previous_selected_element.parentNode.insertBefore(previous_selected_element, savedNextSibling);
+            } else {
+                previous_selected_element.parentNode.appendChild(previous_selected_element);
+            }
+            previous_selected_element.classList.remove("selected-node");
+            clearStrokeHover(previous_selected_element, animation_class);
+            previous_selected_element.removeEventListener("pointerup", redirectHandler);
         }
-        previous_selected_element.classList.remove("selected-node");
-        clearStrokeHover(previous_selected_element, animation_class);
-        previous_selected_element.removeEventListener("touchstart", redirectHandler);
-      }
 
-      // Bring new to front
-      select_svg_element.originalNextSibling = select_svg_element.nextSibling;
-      select_svg_element.parentNode.appendChild(select_svg_element);
-      select_svg_element.classList.add("selected-node");
-      select_svg_element.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-      applyStrokeHover(select_svg_element, animation_class);
-      console.log(select_svg_element.id)
-      zoomInstance.flyToId(select_svg_element.id);
-      select_svg_element.dataset.nodeLink = node.link;
-      select_svg_element.addEventListener("touchstart", redirectHandler);
+        // Bring new to front
+        select_svg_element.originalNextSibling = select_svg_element.nextSibling;
+        select_svg_element.parentNode.appendChild(select_svg_element);
+        select_svg_element.classList.add("selected-node");
+        select_svg_element.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        applyStrokeHover(select_svg_element, animation_class);
+        console.log(select_svg_element.id)
+        zoomInstance.flyToId(select_svg_element.id);
+        select_svg_element.dataset.nodeLink = node.link;
+        // ✅ SAFE redirect trigger
+        select_svg_element.addEventListener("pointerup", redirectHandler);
 
-      // Button active state
-      document.querySelectorAll(".plot-btn").forEach(btn => btn.classList.remove("active-btn"));
-      const currentBtn = document.querySelector(`[data-node-id="${node.id}"]`);
-      if (currentBtn) currentBtn.classList.add("active-btn");
+        // Button active state
+        document.querySelectorAll(".plot-btn").forEach(btn => btn.classList.remove("active-btn"));
+        const currentBtn = document.querySelector(`[data-node-id="${node.id}"]`);
+        if (currentBtn) currentBtn.classList.add("active-btn");
 
-      // ← Sync select dropdown
-      const selectEl = document.querySelector(".node-select");
-      if (selectEl) selectEl.value = node.id;
+        // ← Sync select dropdown
+        const selectEl = document.querySelector(".node-select");
+        if (selectEl) selectEl.value = node.id;
 
-      previous_selected_element = select_svg_element;
+        previous_selected_element = select_svg_element;
     }
 
     /* ================= REDIRECT HANDLER - MOVED INSIDE ================= */
     function redirectHandler(e) {
-  if (zoomInstance.isDragging()) return;
+        if (zoomInstance.isDragging()) return;
 
-  const target_id = e.currentTarget.id;
-  const item = mapData.find(i => i.id === target_id);
-  if (!item?.link) return;
+        const target_id = e.currentTarget.id;
+        const item = mapData.find(i => i.id === target_id);
+        if (!item?.link) return;
 
-  const unit = encodeURIComponent(item.id.trim());
+        const unit = encodeURIComponent(item.id.trim());
 
-let final_url = finalURL;
+        let final_url = finalURL;
 
-final_url += (finalURL.includes("?") ? "&" : "?") + "unit=" + unit;
-  
+        final_url += (finalURL.includes("?") ? "&" : "?") + "unit=" + unit;
+
         function navigateFromFullscreen(url) {
-    if (document.fullscreenElement) {
-      document.exitFullscreen().then(() => {
-        requestAnimationFrame(() => {
-          setTimeout(() => {
-            window.location.href = url;
-            console.log(url)
-          }, 300);
-        });
-      });
-    } else {
-      window.location.href = url;
-    
+            if (document.fullscreenElement) {
+                document.exitFullscreen().then(() => {
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            window.location.href = url;
+                            console.log(url)
+                        }, 300);
+                    });
+                });
+            } else {
+                window.location.href = url;
+
+            }
+        }
+
+        navigateFromFullscreen(final_url);
+
+        // window.location.href = url.href;
     }
-  }
-
-  navigateFromFullscreen( final_url);
-
-  // window.location.href = url.href;
-}
 
     /* ================= NODE SELECT ================= */
     function createNodeSelect(filteredList) {
